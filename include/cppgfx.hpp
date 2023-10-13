@@ -5,6 +5,12 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/System.hpp"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/fmt/fmt.h"
+#include "spdlog/fmt/std.h"
+#include "spdlog/fmt/ranges.h"
+#include <iostream>
 
 enum class LineCap {
     Round,
@@ -174,6 +180,28 @@ namespace cppgfx {
         /// @brief Stop the application
         void close();
 
+
+
+
+
+        // =======================================
+        // =====        System API        ========
+        // =======================================
+
+        /// @brief Print a message without newline to the console (FMT/Python formatting supported)
+        /// @param message The message to print
+        template<typename... Args>
+        auto print(Args&&... args) {
+            fmt::print(std::forward<Args>(args)...);
+        }
+
+        /// @brief Print a message including newline to the console (FMT/Python formatting supported)
+        /// @param message The message to print
+        template<typename... Args>
+        auto println(Args&&... args) {
+            fmt::print(std::forward<Args>(args)...);
+            fmt::print("\n");
+        }
 
 
 

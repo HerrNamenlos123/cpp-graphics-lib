@@ -1,38 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(cppgfx)
 
-if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
-    set(IS_TOP_LEVEL TRUE)
-else ()
-    set(IS_TOP_LEVEL FALSE)
-endif ()
+include(cmake/deps.cmake)
 
 option(BUILD_EXAMPLES "Build examples" ${IS_TOP_LEVEL})
-
-include(FetchContent)
-set(BUILD_SHARED_LIBS FALSE CACHE BOOL "" FORCE)
-FetchContent_Declare(SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 13c8a1de4e4597e1854fc2a17fef28135660c81e
-)
-message(STATUS "Fetching SFML")
-FetchContent_MakeAvailable(SFML)
-
-FetchContent_Declare(imgui
-    GIT_REPOSITORY https://github.com/ocornut/imgui.git
-    GIT_TAG v1.89.9
-)
-message(STATUS "Fetching ImGui")
-FetchContent_MakeAvailable(imgui)
-
-FetchContent_Declare(imgui-sfml
-    GIT_REPOSITORY https://github.com/SFML/imgui-sfml.git
-    GIT_TAG 6bd43671d3fab76f94b1f0877d943d8cc3b34c3b # Latest commit as of October 2023
-)
-message(STATUS "Fetching ImGui-SFML")
-set(IMGUI_SFML_FIND_SFML OFF CACHE BOOL "" FORCE)
-set(IMGUI_DIR ${imgui_SOURCE_DIR} CACHE PATH "" FORCE)
-FetchContent_MakeAvailable(imgui-sfml)
 
 add_library(${PROJECT_NAME} STATIC
         src/cppgfx.cpp
@@ -49,15 +20,11 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         sfml-network
         sfml-system
         ImGui-SFML::ImGui-SFML
+        spdlog::spdlog
 )
 
 if (WIN32)
-    target_link_libraries(${PROJECT_NAME} PUBLIC
-            opengl32
-            gdi32
-            winmm
-            dwmapi
-    )
+    target_link_libraries(${PROJECT_NAME} PUBLIC opengl32 gdi32 winmm dwmapi)
 endif ()
 
 if (BUILD_EXAMPLES)

@@ -1,6 +1,5 @@
 
 #include "cppgfx.hpp"
-#include <iostream>
 
 // Do not write global variables here.
 // Use your application class in order to avoid lifetime issues.
@@ -24,6 +23,7 @@ public:
 //        strokeWeight(10);
         rectMode(RectMode::Corners);
         rect(100, 100, mouseX, mouseY);
+        println("Mouse: {}, {}", mouseX, mouseY);
     }
 };
 
