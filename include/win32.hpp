@@ -8,7 +8,7 @@
 
 namespace cppgfx {
 
-    void EnableDarkTitleBar(sf::WindowHandle handle, bool darkTitleBar);
+    void Win32EnableDarkTitleBar(sf::WindowHandle handle, bool darkTitleBar);
 
 }
 

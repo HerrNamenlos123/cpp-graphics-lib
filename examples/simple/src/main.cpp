@@ -1,5 +1,6 @@
 
 #include "cppgfx.hpp"
+#include <iostream>
 
 // Do not write global variables here.
 // Use your application class in order to avoid lifetime issues.
@@ -12,14 +13,17 @@ public:
 
 
     // This function is called once at the beginning of the program
-    void setup() {
+    void setup() override {
         size(1024, 768);
         setTitle("cppfx: Simple example");
     }
 
     // This function is called repeatedly until the program is terminated
-    void update() {
-
+    void update() override {
+//        stroke(255, 0, 0);
+//        strokeWeight(10);
+        rectMode(RectMode::Corners);
+        rect(100, 100, mouseX, mouseY);
     }
 };
 

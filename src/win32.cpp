@@ -8,7 +8,7 @@
 
 namespace cppgfx {
 
-    void EnableDarkTitleBar(sf::WindowHandle handle, bool darkTitleBar) {
+    void Win32EnableDarkTitleBar(sf::WindowHandle handle, bool darkTitleBar) {
         BOOL useDarkMode = static_cast<BOOL>(darkTitleBar);
         bool const setImmersiveDarkModeSuccess = SUCCEEDED(DwmSetWindowAttribute(
                 handle, DWMWINDOWATTRIBUTE::DWMWA_USE_IMMERSIVE_DARK_MODE,
