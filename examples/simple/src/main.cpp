@@ -12,8 +12,9 @@ public:
 
 
     // This function is called once at the beginning of the program
-    bool setup() {
-
+    void setup() {
+        size(1024, 768);
+        setTitle("cppfx: Simple example");
     }
 
     // This function is called repeatedly until the program is terminated

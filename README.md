@@ -1,4 +1,4 @@
-# cpp-graphics-lib
+# cppgfx
 
 A simple educational C++ graphics library inspired by the Processing ecosystem
 
@@ -8,4 +8,5 @@ The API is inspired by [Processing](https://processing.org/), although it is not
 
 # License
 
-This library is distributed under the MIT license. This means you are free to use it for whatever you like, it is meant to boost education.
+This library is distributed under the MIT license. This means you are free to use it for whatever you like.
+This library is distributed without any warranty whatsoever.
