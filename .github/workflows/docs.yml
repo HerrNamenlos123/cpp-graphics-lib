@@ -42,4 +42,3 @@ jobs:
       with:
         folder: docs/build/html
         branch: docs-pages
-        token: ${{ secrets.GITHUB_TOKEN }}

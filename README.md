@@ -15,6 +15,12 @@ Linux:
 sudo apt-get update && sudo apt-get install -y libgl1-mesa-dev libflac-dev libogg-dev libvorbis-dev xorg libfreetype-dev libxrandr-dev libopenal-dev libudev-dev doxygen
 ```
 
+# Building documentation
+
+```bash
+pip install sphinx sphinx_rtd_theme breathe exhale
+```
+
 # License
 
 This library is distributed under the MIT license. This means you are free to use it for whatever you like.
