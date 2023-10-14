@@ -1,18 +1,17 @@
 
-#include "cppgfx.hpp"
-#include "win32.hpp"
+#include "cppgfx/cppgfx.hpp"
+#include "cppgfx/win32.hpp"
+#include "cppgfx/data.hpp"
 
 #include <chrono>
 
 namespace cppgfx {
 
     App::App() {
-        m_drawStyleStack.push_back(DrawStyle());
+        m_drawStyleStack.emplace_back();
     }
 
-    App::~App() {
-
-    }
+    App::~App() = default;
 
 
 
@@ -93,17 +92,17 @@ namespace cppgfx {
         m_drawStyleStack.back().m_lineCap = cap;
     }
 
-    void App::rect(float x, float y, float width, float height) {
+    void App::rect(float x, float y, float w, float h) {
         if (m_drawStyleStack.back().m_rectMode == RectMode::Center) {
-            x -= width / 2.0f;
-            y -= height / 2.0f;
+            x -= w / 2.0f;
+            y -= h / 2.0f;
         }
         else if (m_drawStyleStack.back().m_rectMode == RectMode::Corner) {
             // Do nothing
         }
         else if (m_drawStyleStack.back().m_rectMode == RectMode::Corners) {
-            width -= x;
-            height -= y;
+            w -= x;
+            h -= y;
         }
         else {
             throw std::runtime_error("Unknown rect mode");
@@ -113,7 +112,7 @@ namespace cppgfx {
         rect.setOutlineColor(m_drawStyleStack.back().m_strokeColor);
         rect.setOutlineThickness(m_drawStyleStack.back().m_strokeWeight);
         rect.setPosition({ x, y });
-        rect.setSize({ width, height });
+        rect.setSize({w, h });
         window.draw(rect);
     }
 
@@ -132,16 +131,51 @@ namespace cppgfx {
         window.draw(circle);
     }
 
-    void App::ellipse(float x, float y, float width, float height) {
+    void App::ellipse(float x, float y, float w, float h) {
         sf::CircleShape circle;
         circle.setFillColor(m_drawStyleStack.back().m_fillColor);
         circle.setOutlineColor(m_drawStyleStack.back().m_strokeColor);
         circle.setOutlineThickness(m_drawStyleStack.back().m_strokeWeight);
-        circle.setRadius(width / 2.0f);
-        circle.scale(1.0f, height / width); // sfml uses a circle as an ellipse, so we need to scale it
-        circle.setOrigin({ width / 2.0f, width / 2.0f });
+        circle.setRadius(w / 2.0f);
+        circle.scale(1.0f, h / w); // sfml uses a circle as an ellipse, so we need to scale it
+        circle.setOrigin({w / 2.0f, w / 2.0f });
         circle.setPosition({ x, y });
         window.draw(circle);
+    }
+
+    void App::triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
+        sf::ConvexShape triangle;
+        triangle.setFillColor(m_drawStyleStack.back().m_fillColor);
+        triangle.setPointCount(3);
+        triangle.setPoint(0, { x1, y1 });
+        triangle.setPoint(1, { x2, y2 });
+        triangle.setPoint(2, { x3, y3 });
+        window.draw(triangle);
+
+        line(x1, y1, x2, y2);
+        line(x2, y2, x3, y3);
+        line(x3, y3, x1, y1);
+    }
+
+    void App::vector(float vectorX, float vectorY, float originX, float originY) {
+        if (vectorX == 0 && vectorY == 0) {
+            return;
+        }
+        float angle = atan2f(vectorY, vectorX);
+        float arrowLength = min(15.f * m_drawStyleStack.back().m_strokeWeight, dist(0, 0, vectorX, vectorY));
+        float arrowAngle = radians(15.0f);
+        float arrowX1 = originX + vectorX - arrowLength * cosf(angle + arrowAngle / 2.f);
+        float arrowY1 = originY + vectorY - arrowLength * sinf(angle + arrowAngle / 2.f);
+        float arrowX2 = originX + vectorX - arrowLength * cosf(angle - arrowAngle / 2.f);
+        float arrowY2 = originY + vectorY - arrowLength * sinf(angle - arrowAngle / 2.f);
+        float arrowCenterX = originX + vectorX - arrowLength * cosf(angle);
+        float arrowCenterY = originY + vectorY - arrowLength * sinf(angle);
+        line(originX, originY, arrowCenterX, arrowCenterY);
+        push();
+        fill(m_drawStyleStack.back().m_strokeColor);
+        noStroke();
+        triangle(originX + vectorX, originY + vectorY, arrowX1, arrowY1, arrowX2, arrowY2);
+        pop();
     }
 
 
@@ -151,15 +185,15 @@ namespace cppgfx {
     // =====         Window API       ========
     // =======================================
 
-    void App::size(int width, int height) {
-        this->width = width;
-        this->height = height;
-        window.setSize(sf::Vector2u(width, height));
+    void App::size(int w, int h) {
+        this->width = w;
+        this->height = h;
+        window.setSize(sf::Vector2u(w, h));
     }
 
-    void App::setTitle(const std::string& title) {
-        this->title = title;
-        window.setTitle(title);
+    void App::setTitle(const std::string& text) {
+        this->title = text;
+        window.setTitle(text);
     }
 
     void App::setFrameRate(float framerate) {
@@ -275,6 +309,11 @@ namespace cppgfx {
 
         window.create(sf::VideoMode({ width, height }), title, sf::Style::Default, settings);
         window.setFramerateLimit(60);
+        auto pngData = decodeBase64(CPP_LOGO_BASE64);
+        sf::Image icon;
+        if (icon.loadFromMemory(pngData.data(), pngData.size())) {
+            window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+        }
 
         while (window.isOpen()) {
 
@@ -368,6 +407,9 @@ namespace cppgfx {
 
             // Call the user's update function
             window.clear(m_defaultBackgroundColor);
+            stroke(0, 0, 0);
+            strokeWeight(2);
+            fill(255, 255, 255);
             update();
 
             // Display the window

@@ -12,6 +12,8 @@
 #include "spdlog/fmt/ranges.h"
 #include <iostream>
 
+#include "cppgfx/base64.hpp"
+
 enum class LineCap {
     Round,
     Square
@@ -151,7 +153,7 @@ namespace cppgfx {
         void lineCap(LineCap cap);
 
         /// @brief Draw a rectangle at (x, y) with the given width and height
-        void rect(float x, float y, float width, float height);
+        void rect(float x, float y, float w, float h);
 
         /// @brief Where the origin of the rectangle is
         void rectMode(RectMode mode);
@@ -160,7 +162,13 @@ namespace cppgfx {
         void circle(float x, float y, float radius);
 
         /// @brief Draw an ellipse at (x, y) with the given width and height
-        void ellipse(float x, float y, float width, float height);
+        void ellipse(float x, float y, float w, float h);
+
+        /// @brief Draw a triangle with the given points
+        void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
+
+        /// @brief Draw a vector arrow from the origin to origin + vector
+        void vector(float vectorX, float vectorY, float originX, float originY);
 
 
 
@@ -169,10 +177,10 @@ namespace cppgfx {
         // =======================================
 
         /// @brief Set the size of the window
-        void size(int width, int height);
+        void size(int w, int h);
 
         /// @brief Set the title of the window
-        void setTitle(const std::string& title);
+        void setTitle(const std::string& text);
 
         /// @brief Set the maximum framerate limit in frames per second
         void setFrameRate(float framerate);
@@ -209,6 +217,20 @@ namespace cppgfx {
             fmt::print("\n");
         }
 
+        /// @brief Encode a string to base-64
+        /// @param input The string to encode
+        /// @return The base-64 encoded string
+        auto encodeBase64(const std::vector<uint8_t>& input) {
+            return encode_base64(input);
+        }
+
+        /// @brief Decode a base-64 encoded string
+        /// @param input The base-64 encoded string
+        /// @return The decoded string
+        auto decodeBase64(const std::string& encodedString) {
+            return decode_base64(encodedString);
+        }
+
 
 
 
@@ -233,6 +255,34 @@ namespace cppgfx {
         /// @param radians The angle in radians
         /// @return The angle in degrees
         float degrees(float radians);
+
+        /// @brief Get the greater of two values
+        /// @param a The first value
+        /// @param b The second value
+        /// @return The greater of the two
+        template<typename T>
+        T max(T a, T b) {
+            return a > b ? a : b;
+        }
+
+        /// @brief Get the lesser of two values
+        /// @param a The first value
+        /// @param b The second value
+        /// @return The lesser of the two values
+        template<typename T>
+        T min(T a, T b) {
+            return a < b ? a : b;
+        }
+
+        /// @brief Clamp the value between the given min and max
+        /// @param value The value to clamp
+        /// @param min The minimum value
+        /// @param max The maximum value
+        /// @return The clamped value
+        template<typename T>
+        T clamp(T value, T min, T max) {
+            return value < min ? min : value > max ? max : value;
+        }
 
 
 
@@ -302,7 +352,7 @@ namespace cppgfx {
         struct DrawStyle {
             sf::Color m_fillColor = sf::Color::White;
             sf::Color m_strokeColor = sf::Color::Black;
-            float m_strokeWeight = 1.0f;
+            float m_strokeWeight = 0.f;
 
             LineCap m_lineCap = LineCap::Round;
             RectMode m_rectMode = RectMode::Corner;

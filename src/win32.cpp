@@ -1,5 +1,5 @@
 
-#include "cppgfx.hpp"
+#include "cppgfx/cppgfx.hpp"
 
 #ifdef _WIN32
 

@@ -1,5 +1,5 @@
 
-#include "cppgfx.hpp"
+#include "cppgfx/cppgfx.hpp"
 
 // Do not write global variables here.
 // Use your application class in order to avoid lifetime issues.
@@ -21,10 +21,13 @@ public:
     void update() override {
 //        stroke(255, 0, 0);
 //        strokeWeight(10);
-        rectMode(RectMode::Corners);
-        rect(100, 100, mouseX, mouseY);
-        ellipse(mouseX, mouseY, mouseX - 100, mouseY - 100);
-        println("Mouse: {}, {}", mouseX, mouseY);
+        stroke(255, 0, 0);
+        vector(sin(second() / 60.0 * 2 * PI) * 200, -cos(second() / 60.0 * 2 * PI) * 200, width / 2, height / 2);
+        stroke(0, 255, 0);
+        vector(sin(minute() / 60.0 * 2 * PI) * 200, -cos(minute() / 60.0 * 2 * PI) * 200, width / 2, height / 2);
+        stroke(0, 0, 255);
+        vector(sin(hour() / 12.0 * 2 * PI) * 200, -cos(hour() / 12.0 * 2 * PI) * 200, width / 2, height / 2);
+//        println("Mouse: {}, {}", mouseX, mouseY);
     }
 };
 
