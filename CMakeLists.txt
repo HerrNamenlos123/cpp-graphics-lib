@@ -4,6 +4,7 @@ project(cppgfx)
 include(cmake/deps.cmake)
 
 option(BUILD_EXAMPLES "Build examples" ${IS_TOP_LEVEL})
+option(BUILD_DOCS "Build documentation" OFF)
 
 add_library(${PROJECT_NAME} STATIC
         src/base64.cpp
@@ -31,4 +32,8 @@ endif ()
 
 if (BUILD_EXAMPLES)
     add_subdirectory(examples)
+endif ()
+
+if (BUILD_DOCS)
+    add_subdirectory(docs)
 endif ()
