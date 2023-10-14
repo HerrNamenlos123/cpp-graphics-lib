@@ -23,6 +23,7 @@ public:
 //        strokeWeight(10);
         rectMode(RectMode::Corners);
         rect(100, 100, mouseX, mouseY);
+        ellipse(mouseX, mouseY, mouseX - 100, mouseY - 100);
         println("Mouse: {}, {}", mouseX, mouseY);
     }
 };

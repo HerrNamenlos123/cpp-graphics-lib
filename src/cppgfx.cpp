@@ -121,6 +121,29 @@ namespace cppgfx {
         m_drawStyleStack.back().m_rectMode = mode;
     }
 
+    void App::circle(float x, float y, float radius) {
+        sf::CircleShape circle;
+        circle.setFillColor(m_drawStyleStack.back().m_fillColor);
+        circle.setOutlineColor(m_drawStyleStack.back().m_strokeColor);
+        circle.setOutlineThickness(m_drawStyleStack.back().m_strokeWeight);
+        circle.setRadius(radius);
+        circle.setOrigin({ radius, radius });
+        circle.setPosition({ x, y });
+        window.draw(circle);
+    }
+
+    void App::ellipse(float x, float y, float width, float height) {
+        sf::CircleShape circle;
+        circle.setFillColor(m_drawStyleStack.back().m_fillColor);
+        circle.setOutlineColor(m_drawStyleStack.back().m_strokeColor);
+        circle.setOutlineThickness(m_drawStyleStack.back().m_strokeWeight);
+        circle.setRadius(width / 2.0f);
+        circle.scale(1.0f, height / width); // sfml uses a circle as an ellipse, so we need to scale it
+        circle.setOrigin({ width / 2.0f, width / 2.0f });
+        circle.setPosition({ x, y });
+        window.draw(circle);
+    }
+
 
 
 

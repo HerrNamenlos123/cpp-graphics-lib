@@ -156,6 +156,12 @@ namespace cppgfx {
         /// @brief Where the origin of the rectangle is
         void rectMode(RectMode mode);
 
+        /// @brief Draw a circle at (x, y) with the given radius
+        void circle(float x, float y, float radius);
+
+        /// @brief Draw an ellipse at (x, y) with the given width and height
+        void ellipse(float x, float y, float width, float height);
+
 
 
         // =======================================
