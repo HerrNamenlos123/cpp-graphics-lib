@@ -31,7 +31,7 @@ public:
     }
 };
 
-// This is the true entry point of the program
+// This is the entry point of the program
 // Do not touch this function unless you know what you are doing
 int main() {
     App app;
