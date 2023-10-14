@@ -23,7 +23,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y libgl1-mesa-dev libflac-dev libogg-dev libvorbis-dev xorg freetype libxrandr-dev libopenal-dev libudev-dev
+      run: sudo apt-get update && sudo apt-get install -y libgl1-mesa-dev libflac-dev libogg-dev libvorbis-dev xorg libfreetype-dev libxrandr-dev libopenal-dev libudev-dev
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
