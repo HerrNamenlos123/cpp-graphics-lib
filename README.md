@@ -6,6 +6,10 @@ The goal of this library is to provide students with a simple programming enviro
 
 The API is inspired by [Processing](https://processing.org/), although it is not a port.
 
+# Documentation
+
+You can find the documentation at https://herrnamenlos123.github.io/cppgfx/
+
 # Installation
 
 If you are on Linux, you must first install all prerequisites.
