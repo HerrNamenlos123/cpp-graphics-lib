@@ -12,7 +12,7 @@ If you are on Linux, you must first install all prerequisites.
 
 Linux:
 ```bash
-sudo apt-get update && sudo apt-get install -y libgl1-mesa-dev libflac-dev libogg-dev libvorbis-dev xorg libfreetype-dev libxrandr-dev libopenal-dev libudev-dev
+sudo apt-get update && sudo apt-get install -y libgl1-mesa-dev libflac-dev libogg-dev libvorbis-dev xorg libfreetype-dev libxrandr-dev libopenal-dev libudev-dev doxygen
 ```
 
 # License
