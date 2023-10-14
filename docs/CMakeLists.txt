@@ -29,3 +29,4 @@ else()
             VERBATIM
     )
 endif ()
+file(WRITE ${CMAKE_CURRENT_LIST_DIR}/build/html/.nojekyll "")
