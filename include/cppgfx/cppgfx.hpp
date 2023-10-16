@@ -12,6 +12,8 @@
 #include "spdlog/fmt/ranges.h"
 #include <iostream>
 
+#include "imgui.h"
+
 #include "cppgfx/base64.hpp"
 
 enum class LineCap {
