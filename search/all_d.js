@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['second_48',['second',['../classcppgfx_1_1App.html#a3aae336c1a549b920d52621551cf41df',1,'cppgfx::App']]],
-  ['setframerate_49',['setFrameRate',['../classcppgfx_1_1App.html#a8017cab13c93fbe3568fafe30a2e9a41',1,'cppgfx::App']]],
-  ['settitle_50',['setTitle',['../classcppgfx_1_1App.html#abbcf87b32f14f1f367932ffe27b76e2d',1,'cppgfx::App']]],
-  ['size_51',['size',['../classcppgfx_1_1App.html#a12d9f4a232e960c9a4b454bf65026279',1,'cppgfx::App']]],
-  ['stroke_52',['stroke',['../classcppgfx_1_1App.html#a6cd518d52b52313b71ea86966ff80829',1,'cppgfx::App::stroke(const sf::Color &amp;color)'],['../classcppgfx_1_1App.html#a1eff83d04c9614108aec976b639532a9',1,'cppgfx::App::stroke(uint8_t r, uint8_t g, uint8_t b, uint8_t a=255)']]],
-  ['strokeweight_53',['strokeWeight',['../classcppgfx_1_1App.html#a0ebfbbb72ad0ab834cb306c7f9912257',1,'cppgfx::App']]],
-  ['system_54',['System',['../group__System.html',1,'']]]
+  ['radians_49',['radians',['../classcppgfx_1_1App.html#a1ec64ef432f19d7436adbb06bedca8ae',1,'cppgfx::App']]],
+  ['rect_50',['rect',['../classcppgfx_1_1App.html#a7cdc02cb0eeb0929c32aed90a7007817',1,'cppgfx::App']]],
+  ['rectmode_51',['rectMode',['../classcppgfx_1_1App.html#ab191e75211d5f794625a23f24030d798',1,'cppgfx::App']]],
+  ['run_52',['run',['../classcppgfx_1_1App.html#ac91586b2361f00d9bc116180b32a343c',1,'cppgfx::App']]]
 ];

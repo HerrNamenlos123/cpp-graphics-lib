@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['title_117',['title',['../classcppgfx_1_1App.html#a73df4bbf21238589e068a2fadc1934da',1,'cppgfx::App']]]
+  ['title_125',['title',['../group__Window.html#ga73df4bbf21238589e068a2fadc1934da',1,'cppgfx::App']]]
 ];

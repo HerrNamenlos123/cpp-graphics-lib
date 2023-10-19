@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['darktitlebar_104',['darkTitleBar',['../classcppgfx_1_1App.html#a6a9115e3371b9b94bd74ad0cfa4fcac5',1,'cppgfx::App']]],
-  ['displayheight_105',['displayHeight',['../classcppgfx_1_1App.html#a2ded3ecaefbeaa28c69e2289918f495d',1,'cppgfx::App']]],
-  ['displaywidth_106',['displayWidth',['../classcppgfx_1_1App.html#aacb38fd79e117af53625bdf5af229e06',1,'cppgfx::App']]]
+  ['darktitlebar_110',['darkTitleBar',['../group__Window.html#ga6a9115e3371b9b94bd74ad0cfa4fcac5',1,'cppgfx::App']]],
+  ['displayheight_111',['displayHeight',['../group__Window.html#ga2ded3ecaefbeaa28c69e2289918f495d',1,'cppgfx::App']]],
+  ['displaywidth_112',['displayWidth',['../group__Window.html#gaacb38fd79e117af53625bdf5af229e06',1,'cppgfx::App']]],
+  ['dmousex_113',['dmouseX',['../group__InputDevices.html#ga06e262ba04f270ff8e545b2ee00f83dc',1,'cppgfx::App']]],
+  ['dmousey_114',['dmouseY',['../group__InputDevices.html#gaa1cd1e7474fe8821d45577da74470639',1,'cppgfx::App']]]
 ];
