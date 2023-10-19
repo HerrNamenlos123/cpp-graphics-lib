@@ -10,6 +10,7 @@
 namespace cppgfx {
 
     App::App() {
+        m_instance = this;
         m_drawStyleStack.emplace_back();
     }
 
@@ -214,6 +215,10 @@ namespace cppgfx {
 
     void App::close() {
         window.close();
+    }
+
+    void App::focus() {
+        window.requestFocus();
     }
 
 

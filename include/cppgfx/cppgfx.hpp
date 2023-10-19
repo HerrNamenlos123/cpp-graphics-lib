@@ -17,8 +17,18 @@
 #include "cppgfx/base64.hpp"
 
 ///
-/// @defgroup System
+/// @defgroup Window
 /// @brief Everything related to windowing and OS integration
+///
+
+///
+/// @defgroup Maths
+/// @brief Mathematical operations and constants
+///
+
+///
+/// @defgroup InputDevices
+/// @brief Input devices like mouse, keyboard, etc.
 ///
 
 enum class LineCap {
@@ -41,59 +51,124 @@ namespace cppgfx {
         App();
         ~App();
 
-        /// @brief The main window of the application [read only]
+        static App& Get() {
+            if (m_instance == nullptr) {
+                throw std::logic_error("cppgfx::App::Get(): No instance of cppgfx::App exists. "
+                                       "Did you forget to create an instance of your application class?");
+            }
+
+            return *m_instance;
+        }
+
+        /// @brief The main window of your application
+        /// @ingroup Window
+        /// @details This is the SFML RenderWindow which is used to draw everything. If you have the knowledge,
+        ///          you can use this variable to access the SFML API directly in order to draw more complex things.
         sf::RenderWindow window;
 
-        /// @brief If the dark title bar should be used [read only]
+        /// @brief If the dark title bar should be used
+        /// @ingroup Window
+        /// @details If this variable is set, the window will have a dark title bar instead of a white one.
+        /// @note For now, this feature only affects Windows.
         bool darkTitleBar = true;
 
         /// @brief The current width of the window [read only]
+        /// @ingroup Window
+        /// @details This variable is automatically updated and will not affect anything if you change it.
+        ///          Use the size() function to change the size of the window.
         uint32_t width = 800;
 
         /// @brief The current height of the window [read only]
+        /// @ingroup Window
+        /// @details This variable is automatically updated and will not affect anything if you change it.
+        ///          Use the size() function to change the size of the window.
         uint32_t height = 600;
 
-        /// @brief The width of the screen or monitor [read only]
+        /// @brief The pixel width of the primary monitor [read only]
+        /// @ingroup Window
+        /// @details This variable is automatically updated and will not affect anything if you change it.
         uint32_t displayWidth = 0;
 
-        /// @brief The height of the screen or monitor [read only]
+        /// @brief The pixel height of the primary monitor [read only]
+        /// @ingroup Window
+        /// @details This variable is automatically updated and will not affect anything if you change it.
         uint32_t displayHeight = 0;
 
-        /// @brief The title of the window [read only]
-        /// @details This variable is updated by the setTitle() function
+        /// @brief The current title of the window [read only]
+        /// @ingroup Window
+        /// @details This variable is automatically updated and will not affect anything if you change it.
+        ///          Use the setTitle() function to change the title of the window.
         std::string title = "My cppgfx application";
 
-        /// @brief If the window is currently focused [read only]
+        /// @brief If the window is currently focused or not [read only]
+        /// @ingroup Window
+        /// @details This variable is automatically updated and will not affect anything if you change it.
+        ///          Use focus() to request window to be focused.
         bool focused = true;
 
         /// @brief The frame count since the program started [read only]
+        /// @ingroup Window
+        /// @details This variable starts at 0 and is incremented for every frame. Keep in mind that using the framecount
+        ///          for timing is not recommended, since the framerate can vary. To get uniform, framerate independent
+        ///          movement, use the frameTime variable instead.
+        ///          This variable is automatically updated and will not affect anything if you change it.
         uint64_t frameCount = 0;
 
         /// @brief The elapsed time since the last frame in seconds [read only]
+        /// @ingroup Window
+        /// @details This is the time in seconds that has passed, since the last frame. Use this variable to get
+        ///          framerate independent motion, by multiplying the distance to move with this variable.
+        ///          This variable is automatically updated and will not affect anything if you change it.
         float frameTime = 0;
 
         /// @brief The current frameRate [read only]
+        /// @ingroup Window
+        /// @details This is the current frameRate in frames per second. It is intended for debugging purposes
+        ///          and diagnostics.
+        ///          This variable is automatically updated and will not affect anything if you change it.
         float frameRate = 0;
 
         /// @brief The mathematical constant PI
+        /// @ingroup Math
         constexpr static float PI = 3.14159265358979323846f;
 
         /// @brief The current mouse position X [read only]
+        /// @ingroup InputDevices
+        /// @details This is the current mouse position X in pixels relative to the top left corner of the window.
+        ///          This variable is automatically updated and will not affect anything if you change it.
         int mouseX = 0;
 
         /// @brief The current mouse position Y [read only]
+        /// @ingroup InputDevices
+        /// @details This is the current mouse position Y in pixels relative to the top left corner of the window.
+        ///          The down direction is positive.
+        ///          This variable is automatically updated and will not affect anything if you change it.
         int mouseY = 0;
 
         /// @brief The previous mouse position X [read only]
+        /// @ingroup InputDevices
+        /// @details This is the mouse position X from the last frame. You can use it in conjunction with mouseX to
+        ///          calculate the difference between the current and previous mouse position.
+        ///          This variable is automatically updated and will not affect anything if you change it.
         int pmouseX = 0;
 
         /// @brief The previous mouse position Y [read only]
+        /// @ingroup InputDevices
+        /// @details This is the mouse position Y from the last frame. You can use it in conjunction with mouseY to
+        ///          calculate the difference between the current and previous mouse position.
+        ///          This variable is automatically updated and will not affect anything if you change it.
         int pmouseY = 0;
 
-        // @brief The difference between the current and previous mouse position X [read only]
+        /// @brief The difference between the current and previous mouse position X [read only]
+        /// @ingroup InputDevices
+        /// @details This is the difference between the current and previous mouse position X.
+        ///          This variable is automatically updated and will not affect anything if you change it.
         int dmouseX = 0;
 
-        // @brief The difference between the current and previous mouse position Y [read only]
+        /// @brief The difference between the current and previous mouse position Y [read only]
+        /// @ingroup InputDevices
+        /// @details This is the difference between the current and previous mouse position Y.
+        ///          This variable is automatically updated and will not affect anything if you change it.
         int dmouseY = 0;
 
 
@@ -186,22 +261,44 @@ namespace cppgfx {
         // =======================================
 
         /// @brief Set the size of the window
+        /// @ingroup Window
+        /// @details This function will change the size of the window to the given width and height.
+        /// @param w The new width of the window in pixel
+        /// @param h The new height of the window in pixel
         void size(int w, int h);
 
         /// @brief Set the title of the window
+        /// @ingroup Window
+        /// @details This function will change the title of the window to the given text.
+        /// @param text The new title of the window
         void setTitle(const std::string& text);
 
         /// @brief Set the maximum framerate limit in frames per second
+        /// @ingroup Window
+        /// @details This function will limit the framerate to the given value.
+        /// @param framerate The new framerate limit
         void setFrameRate(float framerate);
 
         /// @brief Switch to fullscreen mode
+        /// @ingroup Window
+        /// @details This function will switch the window to fullscreen mode.
         void fullscreen();
 
         /// @brief Exit fullscreen mode
+        /// @ingroup Window
+        /// @details This function will exit fullscreen mode and restore the window to its previous size.
         void exitFullscreen();
 
         /// @brief Stop the application
+        /// @ingroup Window
+        /// @details This function will stop the application and close the window.
         void close();
+
+        /// @brief Request the window to be focused
+        /// @ingroup Window
+        /// @details This function will not focus the window immediately, but instead request the window to be focused.
+        ///          On Windows for example, this is noticable by the taskbar icon flashing orange.
+        void focus();
 
 
 
@@ -349,6 +446,8 @@ namespace cppgfx {
         App& operator=(const App&) = delete;
 
         void updateDisplaySize();
+
+        inline static App* m_instance = nullptr;
 
         sf::Color m_defaultBackgroundColor = sf::Color(60, 60, 60);
         bool m_isDarkTitleBar = false;
