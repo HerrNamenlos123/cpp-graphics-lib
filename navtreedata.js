@@ -25,6 +25,17 @@
 var NAVTREE =
 [
   [ "cppgfx", "index.html", [
+    [ "Welcome to cppgfx!", "index.html", [
+      [ "What is cppgfx?", "index.html#autotoc_md1", [
+        [ "What's under the hood?", "index.html#autotoc_md2", null ]
+      ] ],
+      [ "When NOT to use cppgfx?", "index.html#autotoc_md3", null ],
+      [ "How to use cppgfx?", "index.html#autotoc_md4", [
+        [ "Installation", "index.html#autotoc_md5", [
+          [ "Prerequisites", "index.html#autotoc_md6", null ]
+        ] ]
+      ] ]
+    ] ],
     [ "Modules", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
