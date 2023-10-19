@@ -1,7 +1,3 @@
-///
-/// @defgroup cppgfx cppgfx
-/// @{
-///
 
 #ifndef CPP_GRAPHICS_LIB_CPPGFX_HPP
 #define CPP_GRAPHICS_LIB_CPPGFX_HPP
@@ -19,6 +15,11 @@
 #include "imgui.h"
 
 #include "cppgfx/base64.hpp"
+
+///
+/// @defgroup System
+/// @brief Everything related to windowing and OS integration
+///
 
 enum class LineCap {
     Round,
@@ -372,5 +373,3 @@ namespace cppgfx {
 }
 
 #endif //CPP_GRAPHICS_LIB_CPPGFX_HPP
-
-/// @}
