@@ -1,32 +1,24 @@
 find_package(Doxygen REQUIRED)
 
-set(DOXYGEN_INPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/../include)
 set(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/doxygen)
 set(DOXYGEN_INDEX_FILE ${DOXYGEN_OUTPUT_DIR}/html/index.html)
 set(DOXYFILE_IN ${CMAKE_CURRENT_LIST_DIR}/Doxyfile.in)
 set(DOXYFILE_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 
-#Replace variables inside @@ with the current values
-configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT} @ONLY)
+include(FetchContent)
+message(STATUS "Fetching doxygen-awesome-css")
+FetchContent_Declare(doxygen_awesome_css
+        GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git
+        GIT_TAG        v2.2.1
+)
+FetchContent_MakeAvailable(doxygen_awesome_css)
 
-file(MAKE_DIRECTORY ${DOXYGEN_OUTPUT_DIR}) #Doxygen won't create this for us
+#Replace variables inside @@ with the current values
+configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT})
+
 add_custom_target(docs ALL
         COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/../
 )
 
-if (WIN32)
-    add_custom_command(TARGET docs POST_BUILD
-            COMMAND ${CMAKE_CURRENT_LIST_DIR}/make.bat html
-            COMMENT "Generating sphinx documentation"
-            WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-            VERBATIM
-    )
-else()
-    add_custom_command(TARGET docs POST_BUILD
-            COMMAND make html
-            COMMENT "Generating sphinx documentation"
-            WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-            VERBATIM
-    )
-endif ()
-file(WRITE ${CMAKE_CURRENT_LIST_DIR}/build/html/.nojekyll "")
+#file(WRITE ${SPHINX_BUILD}/html/.nojekyll "")

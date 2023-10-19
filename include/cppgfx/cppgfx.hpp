@@ -1,3 +1,7 @@
+///
+/// @defgroup cppgfx cppgfx
+/// @{
+///
 
 #ifndef CPP_GRAPHICS_LIB_CPPGFX_HPP
 #define CPP_GRAPHICS_LIB_CPPGFX_HPP
@@ -29,6 +33,8 @@ enum class RectMode {
 
 namespace cppgfx {
 
+    /// @brief The main application class
+    /// @details This class is supposed to be inherited by the user.
     class App {
     public:
         App();
@@ -229,8 +235,8 @@ namespace cppgfx {
         /// @brief Decode a base-64 encoded string
         /// @param input The base-64 encoded string
         /// @return The decoded string
-        auto decodeBase64(const std::string& encodedString) {
-            return decode_base64(encodedString);
+        auto decodeBase64(const std::string& input) {
+            return decode_base64(input);
         }
 
 
@@ -366,3 +372,5 @@ namespace cppgfx {
 }
 
 #endif //CPP_GRAPHICS_LIB_CPPGFX_HPP
+
+/// @}

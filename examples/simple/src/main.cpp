@@ -32,6 +32,7 @@ public:
             counter++;
         }
         println("Sum * 4: {}", sum * 4);
+//        println("Framerate: {}", frameRate);
 //        ImGui::ShowDemoWindow();
 //        stroke(255, 0, 0);
 //        strokeWeight(10);
@@ -42,6 +43,15 @@ public:
 //        stroke(0, 0, 255);
 //        vector(sin(hour() / 12.0 * 2 * PI) * 200, -cos(hour() / 12.0 * 2 * PI) * 200, width / 2, height / 2);
 //        println("Mouse: {}, {}", mouseX, mouseY);
+
+        float x = mouseX - 200;
+        float y = mouseY - 200;
+
+        stroke(255, 0, 0);
+        vector(x, y, 200, 200);
+
+        stroke(0, 255, 0);
+        vector(y, -x, 200, 200);
     }
 };
 

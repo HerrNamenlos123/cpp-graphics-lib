@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(cppgfx)
+project(cppgfx VERSION 0.1.0 LANGUAGES CXX)
 
 include(cmake/deps.cmake)
 
