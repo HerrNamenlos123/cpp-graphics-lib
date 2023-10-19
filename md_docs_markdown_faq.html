@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9"/>
     <meta name="generator" content="Doxygen 1.9.1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>cppgfx: Welcome to cppgfx!</title>
+    <title>cppgfx: FAQ</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -82,7 +82,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('md_docs_markdown_faq.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -102,28 +102,27 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Welcome to cppgfx! </div>  </div>
+<div class="title">FAQ </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_docs_markdown_mainpage"></a> </p>
-<h1><a class="anchor" id="autotoc_md7"></a>
-What is cppgfx?</h1>
-<p>cppgfx is a C++17 graphics library, which is heavily inspired by <a href="https://processing.org/">Processing</a>. It is designed to be easy to use, while still being fast and flexible. The main goal is to encourage beginner programmers to program their own ideas while having a ton of features at their fingertips.</p>
-<p>It was created because usually students are taught programming by using the command line, which is not very exciting. cppgfx tries to change this so that students already have a boilerplate project and can bring their own ideas to life. Projects can range from simple visual effects to fully featured games and scientific data visualization.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
-What's under the hood?</h2>
-<p>cppgfx is based on some of the best supported C++ libraries, such as <a href="https://www.sfml-dev.org/">SFML</a> and <a href="https://github.com/ocornut/imgui">Dear ImGui</a>. The bridge is provided by <a href="https://github.com/SFML/imgui-sfml">ImGui-SFML</a>.</p>
-<p>SFML is a graphics framework targeted at 2D game development, while ImGui is a GUI library. This allows you to create gorgeous minigames with pretty GUI, or whatever you would like to visualize.</p>
-<p>There are more libraries in cppgfx, for example <a href="https://github.com/gabime/spdlog">spdlog</a> for logging and <a href="https://github.com/g-truc/glm">glm</a> for vector math and matrix operations. Many others are not yet listed or yet to come.</p>
-<p>Additionally, a serial library for Arduino communication is planned, as well as one for 3D rendering. Feel free to file an issue if you have any feature ideas or suggestions for future libraries!</p>
-<h1><a class="anchor" id="autotoc_md9"></a>
-When NOT to use cppgfx?</h1>
-<p>cppgfx is NOT a fully featured game engine or alike, and is not intended to be used for any sort of production. You can use it however you like, but it was never designed for more than mid-sized educational projects on a single computer.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
-How to use cppgfx?</h1>
-<p>to be done </p>
-</div></div><!-- PageDoc -->
-</div><!-- contents -->
+<div class="textblock"><h2><a class="anchor" id="autotoc_md1"></a>
+What the heck is this App class? Why not just global functions like in Processing?</h2>
+<p>There are many ways to let a user write functions. For example, in Processing there are a few global functions and you simply write global variables at the top of the file. The problem with doing this is that you have no control over the lifetime.</p>
+<p>Global variables outlive the main function and are automatically cleaned up after the main function has returned. This is usually not an issue for trivially destructible types. But when the global object is a complex type like an SFML framebuffer or an SFML GPU texture, they have access to underlying resources like OpenGL handles.</p>
+<p>This would mean that at the end of the main function, the resources are cleaned up and handles are returned to the operating system, then the main function returns, and only then are the global variables destructed. Which means the SFML types might try to access the OpenGL handles, which are no longer valid, causing a crash. This is why global variables are generally dangerous and should be avoided. No variable should outlive the scope of the main function.</p>
+<p>A simple solution to this is to create a class that holds all the global variables and functions. This class is then constructed, called and destructed within the scope of the main function. This way, all the resources are automatically cleaned up before the main function returns and everything is fine.</p>
+<p>This is the reason you should not ever write a global variable in cppgfx, instead make it part of the App class.</p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Can I write anything outside of the App class?</h2>
+<p>Yes, you can write as many classes and functions outside of the main App class, except global variables. See above why you should avoid global variables.</p>
+<p>If you must access the app instance from outside, you can use the prefix <code>App::Get().</code> to access any public members. </p><div class="fragment"><div class="line"><span class="comment">// Inside of the App class:</span></div>
+<div class="line">setTitle(<span class="stringliteral">&quot;Hello World&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Equivalent outside of App:</span></div>
+<div class="line">App::Get().setTitle(<span class="stringliteral">&quot;Hello World&quot;</span>);</div>
+</div><!-- fragment --><p><code>App::Get().</code> will always point to the last <code><a class="el" href="classcppgfx_1_1App.html" title="The main application class.">cppgfx::App</a></code> instance constructed (which should be the only one). Keep in mind that this points to the <code><a class="el" href="classcppgfx_1_1App.html" title="The main application class.">cppgfx::App</a></code> parent class itself and not the class you derived from it. Thus, this can only be used to access built-in functions, but not any custom functions and variables you wrote yourself. </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['welcome_20to_20cppgfx_21_119',['Welcome to cppgfx!',['../index.html',1,'']]]
+  ['faq_121',['FAQ',['../md_docs_markdown_faq.html',1,'']]]
 ];
