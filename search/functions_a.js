@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['radians_97',['radians',['../classcppgfx_1_1App.html#a1ec64ef432f19d7436adbb06bedca8ae',1,'cppgfx::App']]],
-  ['rect_98',['rect',['../classcppgfx_1_1App.html#a7cdc02cb0eeb0929c32aed90a7007817',1,'cppgfx::App']]],
-  ['rectmode_99',['rectMode',['../classcppgfx_1_1App.html#ab191e75211d5f794625a23f24030d798',1,'cppgfx::App']]],
-  ['run_100',['run',['../classcppgfx_1_1App.html#ac91586b2361f00d9bc116180b32a343c',1,'cppgfx::App']]]
+  ['pop_125',['pop',['../group__Graphics.html#gad54c6d8b60218af0f0fca1a442bd15a1',1,'cppgfx::App']]],
+  ['print_126',['print',['../group__Output.html#ga8e23dbf2f67823ccf0c06d1627e2da49',1,'cppgfx::App']]],
+  ['println_127',['println',['../group__Output.html#gac080e5062c3e42f12ae53d7175aef9df',1,'cppgfx::App']]],
+  ['push_128',['push',['../group__Graphics.html#ga60d5687a7d2652fb085dd5dd16fa89ea',1,'cppgfx::App']]]
 ];
