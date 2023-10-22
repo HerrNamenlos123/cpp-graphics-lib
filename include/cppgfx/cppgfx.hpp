@@ -27,8 +27,28 @@
 ///
 
 ///
-/// @defgroup InputDevices
+/// @defgroup Input
 /// @brief Input devices like mouse, keyboard, etc.
+///
+
+///
+/// @defgroup Graphics
+/// @brief Drawing primitives and styles
+///
+
+///
+/// @defgroup Output
+/// @brief Console output and formatting
+///
+
+///
+/// @defgroup Timing
+/// @brief Time, Sleep and Date
+///
+
+///
+/// @defgroup Events
+/// @brief All cppgfx functions you can override, including Events.
 ///
 
 enum class LineCap {
@@ -133,61 +153,131 @@ namespace cppgfx {
         constexpr static float PI = 3.14159265358979323846f;
 
         /// @brief The current mouse position X [read only]
-        /// @ingroup InputDevices
+        /// @ingroup Input
         /// @details This is the current mouse position X in pixels relative to the top left corner of the window.
         ///          This variable is automatically updated and will not affect anything if you change it.
         int mouseX = 0;
 
         /// @brief The current mouse position Y [read only]
-        /// @ingroup InputDevices
+        /// @ingroup Input
         /// @details This is the current mouse position Y in pixels relative to the top left corner of the window.
         ///          The down direction is positive.
         ///          This variable is automatically updated and will not affect anything if you change it.
         int mouseY = 0;
 
         /// @brief The previous mouse position X [read only]
-        /// @ingroup InputDevices
+        /// @ingroup Input
         /// @details This is the mouse position X from the last frame. You can use it in conjunction with mouseX to
         ///          calculate the difference between the current and previous mouse position.
         ///          This variable is automatically updated and will not affect anything if you change it.
         int pmouseX = 0;
 
         /// @brief The previous mouse position Y [read only]
-        /// @ingroup InputDevices
+        /// @ingroup Input
         /// @details This is the mouse position Y from the last frame. You can use it in conjunction with mouseY to
         ///          calculate the difference between the current and previous mouse position.
         ///          This variable is automatically updated and will not affect anything if you change it.
         int pmouseY = 0;
 
-        /// @brief The difference between the current and previous mouse position X [read only]
-        /// @ingroup InputDevices
+        /// @brief Delta X: The difference between the current and previous mouse position X [read only]
+        /// @ingroup Input
         /// @details This is the difference between the current and previous mouse position X.
         ///          This variable is automatically updated and will not affect anything if you change it.
         int dmouseX = 0;
 
-        /// @brief The difference between the current and previous mouse position Y [read only]
-        /// @ingroup InputDevices
+        /// @brief Delta Y: The difference between the current and previous mouse position Y [read only]
+        /// @ingroup Input
         /// @details This is the difference between the current and previous mouse position Y.
         ///          This variable is automatically updated and will not affect anything if you change it.
         int dmouseY = 0;
 
 
-        // These functions are supposed to be overridden by the user
+
+
+        // =======================================
+        // =====     Virtual Functions    ========
+        // =======================================
+
+        /// @brief This function is called once at the beginning of the program.
+        /// @ingroup Events
+        /// @details It must be overridden in your class which inherits from cppgfx::App.
         virtual void setup() = 0;
+
+        /// @brief This function is called repeatedly until the program is terminated.
+        /// @ingroup Events
+        /// @details It must be overridden in your class which inherits from cppgfx::App.
         virtual void update() = 0;
 
+        /// @brief This function can be used to intercept the window close event.
+        /// @ingroup Events
+        /// @details This function is called when the window wants to be closed. Using this function, you can
+        ///          decide if you really want to close it or continue, by returning true or false. Returning true
+        ///          will close the window immediately, returning false will ignore the event.
+        ///          It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual bool onWindowClose() { return true; }
+
+        /// @brief This function is called when keys on the keyboard are pressed. To be used for text input.
+        /// @ingroup Events
+        /// @details This function is to be used if you want the user to type text on the keyboard. If you want
+        ///          to capture key events with key bindings, use onKeyPressed() instead.
+        ///          It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onTextInput(const sf::Event::TextEvent& event) {}
+
+        /// @brief This function is called when keys on the keyboard are pressed. To be used for key bindings, not text.
+        /// @ingroup Events
+        /// @details This function is to be used if you want to capture key events that are tied to specific keys.
+        ///          If you want the user to write text, use onTextInput() instead.
+        ///          It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onKeyPressed(const sf::Event::KeyEvent& event) {}
+
+        /// @brief This function is called when keys on the keyboard are released.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onKeyReleased(const sf::Event::KeyEvent& event) {}
+
+        /// @brief This function is called when a mouse button is pressed.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onMousePressed(const sf::Event::MouseButtonEvent& event) {}
+
+        /// @brief This function is called when a mouse button is released.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onMouseReleased(const sf::Event::MouseButtonEvent& event) {}
+
+        /// @brief This function is called when the mouse is moved.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onMouseMoved(const sf::Event::MouseMoveEvent& event) {}
+
+        /// @brief This function is called when the mouse wheel is scrolled.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onMouseWheel(const sf::Event::MouseWheelScrollEvent& event) {}
+
+        /// @brief This function is called when the mouse enters the window.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onMouseEnter() {}
+
+        /// @brief This function is called when the mouse leaves the window.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onMouseLeave() {}
+
+        /// @brief This function is called when the window is resized.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onWindowResize() {}
+
+        /// @brief This function is called when the window is focused.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onWindowFocus() {}
+
+        /// @brief This function is called when the window loses focus.
+        /// @ingroup Events
+        /// @details It can optionally be overridden in your class which inherits from cppgfx::App.
         virtual void onWindowUnfocus() {}
 
 
@@ -197,61 +287,137 @@ namespace cppgfx {
         // =====        Graphics API      ========
         // =======================================
 
-        /// @brief Set the background color of the window
+        /// @brief Set the background color of the window for the current frame
+        /// @ingroup Graphics
+        /// @param color The background color
         void background(const sf::Color& color);
 
         /// @brief Set the background color of the window
+        /// @ingroup Graphics
+        /// @param r The red component of the background color [0-255]
+        /// @param g The green component of the background color [0-255]
+        /// @param b The blue component of the background color [0-255]
+        /// @param a The alpha component of the background color [0-255] (optional)
         void background(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
 
         /// @brief Set the infill color for primitives
+        /// @ingroup Graphics
+        /// @param color The infill color
         void fill(const sf::Color& color);
 
         /// @brief Set the infill color for primitives
+        /// @ingroup Graphics
+        /// @param r The red component of the infill color [0-255]
+        /// @param g The green component of the infill color [0-255]
+        /// @param b The blue component of the infill color [0-255]
+        /// @param a The alpha component of the infill color [0-255] (optional)
         void fill(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
 
         /// @brief Disable the infill color for primitives
+        /// @ingroup Graphics
         void noFill();
 
         /// @brief Set the outline color for primitives
+        /// @ingroup Graphics
         void stroke(const sf::Color& color);
 
         /// @brief Set the outline color for primitives
+        /// @ingroup Graphics
+        /// @param r The red component of the outline color [0-255]
+        /// @param g The green component of the outline color [0-255]
+        /// @param b The blue component of the outline color [0-255]
+        /// @param a The alpha component of the outline color [0-255] (optional)
         void stroke(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
 
         /// @brief Disable the outline color for primitives
+        /// @ingroup Graphics
         void noStroke();
 
         /// @brief Set the thickness of the outline for primitives
+        /// @ingroup Graphics
+        /// @param weight The thickness of the outline in pixels
         void strokeWeight(float weight);
 
         /// @brief Push the current draw style onto the stack
+        /// @ingroup Graphics
+        /// @details This function will push the current draw style onto the stack, so that it can be restored later.
+        ///          This mechanism is very useful when you want to temporarily change the draw style, and later
+        ///          change it back to what it was.
         void push();
 
         /// @brief Pop the current draw style from the stack
+        /// @ingroup Graphics
+        /// @details This function will pop the current draw style from the stack, so that it can be restored later.
+        ///          This mechanism is very useful when you want to temporarily change the draw style, and later
+        ///          change it back to what it was.
         void pop();
 
         /// @brief Draw a line from (x1, y1) to (x2, y2)
+        /// @ingroup Graphics
+        /// @param x1 The x coordinate of the first point in pixels, relative to the top left corner of the window
+        /// @param y1 The y coordinate of the first point in pixels, relative to the top left corner of the window
+        /// @param x2 The x coordinate of the second point in pixels, relative to the top left corner of the window
+        /// @param y2 The y coordinate of the second point in pixels, relative to the top left corner of the window
         void line(float x1, float y1, float x2, float y2);
 
         /// @brief Set the line cap style
+        /// @ingroup Graphics
+        /// @param cap The line cap style
         void lineCap(LineCap cap);
 
         /// @brief Draw a rectangle at (x, y) with the given width and height
+        /// @ingroup Graphics
+        /// @details What the x, y, w and h parameters mean depends on the current rectMode.
+        /// @param x The first x coordinate in pixels, relative to the top left corner of the window
+        /// @param y The first y coordinate in pixels, relative to the top left corner of the window
+        /// @param w The second x coordinate in pixels, relative to the top left corner of the window
+        /// @param h The second y coordinate in pixels, relative to the top left corner of the window
         void rect(float x, float y, float w, float h);
 
         /// @brief Where the origin of the rectangle is
+        /// @ingroup Graphics
+        /// @details This function will change the meaning of the x, y, w and h parameters of the rect() function.
+        ///          The default is RectMode::Corner. RectMode::Corner means that x and y are the top left corner
+        ///          of the rectangle and w and h are the width and height of the rectangle. RectMode::Center means
+        ///          that x and y are the center of the rectangle and w and h are the width and height of the rectangle.
+        ///          RectMode::Corners means that x and y are the top left corner of the rectangle and w and h are the
+        ///          bottom right corner of the rectangle.
+        /// @param mode The rectMode
         void rectMode(RectMode mode);
 
         /// @brief Draw a circle at (x, y) with the given radius
+        /// @ingroup Graphics
+        /// @param x The x coordinate of the center of the circle in pixels, relative to the top left corner of the window
+        /// @param y The y coordinate of the center of the circle in pixels, relative to the top left corner of the window
+        /// @param radius The radius of the circle in pixels
         void circle(float x, float y, float radius);
 
         /// @brief Draw an ellipse at (x, y) with the given width and height
+        /// @ingroup Graphics
+        /// @param x The x coordinate of the center of the ellipse in pixels, relative to the top left corner of the window
+        /// @param y The y coordinate of the center of the ellipse in pixels, relative to the top left corner of the window
+        /// @param w The width of the ellipse in pixels
+        /// @param h The height of the ellipse in pixels
         void ellipse(float x, float y, float w, float h);
 
         /// @brief Draw a triangle with the given points
+        /// @ingroup Graphics
+        /// @param x1 The x coordinate of the first point in pixels, relative to the top left corner of the window
+        /// @param y1 The y coordinate of the first point in pixels, relative to the top left corner of the window
+        /// @param x2 The x coordinate of the second point in pixels, relative to the top left corner of the window
+        /// @param y2 The y coordinate of the second point in pixels, relative to the top left corner of the window
+        /// @param x3 The x coordinate of the third point in pixels, relative to the top left corner of the window
+        /// @param y3 The y coordinate of the third point in pixels, relative to the top left corner of the window
         void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
 
         /// @brief Draw a vector arrow from the origin to origin + vector
+        /// @ingroup Graphics
+        /// @details This function will draw a vector arrow from the origin to origin + vector. It is meant to be used
+        ///          for scientific visualization purposes.
+        /// @param vectorX The x component of the vector
+        /// @param vectorY The y component of the vector
+        /// @param originX The x coordinate of the origin of the vector in pixels, relative to the top left corner of the window
+        /// @param originY The y coordinate of the origin of the vector in pixels, relative to the top left corner of the window
         void vector(float vectorX, float vectorY, float originX, float originY);
 
 
@@ -308,32 +474,34 @@ namespace cppgfx {
         // =====        System API        ========
         // =======================================
 
-        /// @brief Print a message without newline to the console (FMT/Python formatting supported)
-        /// @param message The message to print
+        /// @brief Print a formatted string without newline to the console (FMT/Python formatting supported)
+        /// @ingroup Output
+        /// @param args Arguments to pass to fmt::print.
         template<typename... Args>
-        auto print(Args&&... args) {
+        void print(Args&&... args) {
             fmt::print(std::forward<Args>(args)...);
         }
 
-        /// @brief Print a message including newline to the console (FMT/Python formatting supported)
-        /// @param message The message to print
+        /// @brief Print a formatted string with newline to the console (FMT/Python formatting supported)
+        /// @ingroup Output
+        /// @param args Arguments to pass to fmt::print.
         template<typename... Args>
-        auto println(Args&&... args) {
+        void println(Args&&... args) {
             fmt::print(std::forward<Args>(args)...);
             fmt::print("\n");
         }
 
-        /// @brief Encode a string to base-64
-        /// @param input The string to encode
+        /// @brief Encode an arbitrary resource in base-64 encoding
+        /// @param input The byte sequence to encode. This can be a string, or any arbitrary byte sequence.
         /// @return The base-64 encoded string
-        auto encodeBase64(const std::vector<uint8_t>& input) {
+        std::string encodeBase64(const std::vector<uint8_t>& input) {
             return encode_base64(input);
         }
 
-        /// @brief Decode a base-64 encoded string
-        /// @param input The base-64 encoded string
-        /// @return The decoded string
-        auto decodeBase64(const std::string& input) {
+        /// @brief Decode a base-64 encoded string into its original form
+        /// @param input The base-64 encoded string to decode. The result can be a string, or any arbitrary byte sequence.
+        /// @return The decoded byte sequence or string
+        std::vector<uint8_t> decodeBase64(const std::string& input) {
             return decode_base64(input);
         }
 
@@ -345,6 +513,7 @@ namespace cppgfx {
         // =======================================
 
         /// @brief Get the distance between two points
+        /// @ingroup Math
         /// @param x1 The x coordinate of the first point
         /// @param y1 The y coordinate of the first point
         /// @param x2 The x coordinate of the second point
@@ -353,41 +522,46 @@ namespace cppgfx {
         float dist(float x1, float y1, float x2, float y2);
 
         /// @brief Convert degrees to radians
+        /// @ingroup Math
         /// @param degrees The angle in degrees
         /// @return The angle in radians
         float radians(float degrees);
 
         /// @brief Convert radians to degrees
+        /// @ingroup Math
         /// @param radians The angle in radians
         /// @return The angle in degrees
         float degrees(float radians);
 
         /// @brief Get the greater of two values
+        /// @ingroup Math
         /// @param a The first value
         /// @param b The second value
         /// @return The greater of the two
         template<typename T>
         T max(T a, T b) {
-            return a > b ? a : b;
+            return std::max(a, b);
         }
 
         /// @brief Get the lesser of two values
+        /// @ingroup Math
         /// @param a The first value
         /// @param b The second value
         /// @return The lesser of the two values
         template<typename T>
         T min(T a, T b) {
-            return a < b ? a : b;
+            return std::min(a, b);
         }
 
         /// @brief Clamp the value between the given min and max
+        /// @ingroup Math
         /// @param value The value to clamp
         /// @param min The minimum value
         /// @param max The maximum value
         /// @return The clamped value
         template<typename T>
         T clamp(T value, T min, T max) {
-            return value < min ? min : value > max ? max : value;
+            return std::clamp(value, min, max);
         }
 
 
@@ -398,34 +572,42 @@ namespace cppgfx {
         // =======================================
 
         /// @brief Get the number of microseconds since the program started
+        /// @ingroup Timing
         /// @return The elapsed number of microseconds
         uint64_t micros();
 
         /// @brief Get the number of milliseconds since the program started
+        /// @ingroup Timing
         /// @return The elapsed number of milliseconds
         uint64_t millis();
 
         /// @brief Get the current second from the system clock [0-59]
+        /// @ingroup Timing
         /// @return The current second
         int second();
 
         /// @brief Get the current minute from the system clock [0-59]
+        /// @ingroup Timing
         /// @return The current minute
         int minute();
 
         /// @brief Get the current hour from the system clock [0-23]
+        /// @ingroup Timing
         /// @return The current hour
         int hour();
 
         /// @brief Get the current day of the month [1-31]
+        /// @ingroup Timing
         /// @return The current day of the month
         int day();
 
         /// @brief Get the current month of the year [1-12]
+        /// @ingroup Timing
         /// @return The current month of the year
         int month();
 
         /// @brief Get the current year
+        /// @ingroup Timing
         /// @return The current year
         int year();
 
