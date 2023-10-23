@@ -208,6 +208,11 @@ namespace cppgfx {
         /// @details It must be overridden in your class which inherits from cppgfx::App.
         virtual void update() = 0;
 
+        /// @brief This function is called once at the end of the program.
+        /// @ingroup Events
+        /// @details It can be overridden in your class which inherits from cppgfx::App.
+        virtual void cleanup() {}
+
         /// @brief This function can be used to intercept the window close event.
         /// @ingroup Events
         /// @details This function is called when the window wants to be closed. Using this function, you can

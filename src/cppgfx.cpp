@@ -501,6 +501,9 @@ namespace cppgfx {
             frameCount++;
         }
 
+        // Call the user defined cleanup
+        cleanup();
+
         ImGui::SFML::Shutdown();
     }
 
