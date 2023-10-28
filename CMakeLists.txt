@@ -24,6 +24,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         sfml-system
         ImGui-SFML::ImGui-SFML
         spdlog::spdlog
+        glm::glm
 )
 
 if (WIN32)

@@ -234,7 +234,7 @@ namespace cppgfx {
         sfText.setFillColor(m_drawStyleStack.back().m_fillColor);
         sfText.setOutlineColor(m_drawStyleStack.back().m_strokeColor);
         sfText.setOutlineThickness(m_drawStyleStack.back().m_strokeWeight);
-        sfText.setOrigin({ 0, sfText.getLocalBounds().top + sfText.getLocalBounds().height });
+        sfText.setOrigin({ 0, sfText.getLocalBounds().top });
         if (m_drawStyleStack.back().m_textAlign == TextAlign::Left) {
             sfText.setPosition({ x, y });
         }
@@ -310,6 +310,26 @@ namespace cppgfx {
 
     float App::degrees(float radians) {
         return radians * (180.0f / PI);
+    }
+
+    void App::randomSeed(uint32_t seed) {
+        std::srand(seed);
+    }
+
+    int App::randomInt(int min, int max) {
+        return min + std::rand() / (RAND_MAX / (max - min));
+    }
+
+    int App::randomInt(int max) {
+        return random(0, max);
+    }
+
+    float App::random(float min, float max) {
+        return min + static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / (max - min)));
+    }
+
+    float App::random(float max) {
+        return random(0.0f, max);
     }
 
 
@@ -491,6 +511,7 @@ namespace cppgfx {
             mouseY = sf::Mouse::getPosition(window).y;
             dmouseX = mouseX - pmouseX;
             dmouseY = mouseY - pmouseY;
+            mousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right);
 
             // Handle events
             sf::Event event {};

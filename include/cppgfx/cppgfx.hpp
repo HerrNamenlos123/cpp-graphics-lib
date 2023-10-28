@@ -11,6 +11,9 @@
 #include "spdlog/fmt/std.h"
 #include "spdlog/fmt/ranges.h"
 #include <iostream>
+#include <random>
+
+#include "glm/glm.hpp"
 
 #include "imgui.h"
 
@@ -196,6 +199,11 @@ namespace cppgfx {
         /// @details This is the difference between the current and previous mouse position Y.
         ///          This variable is automatically updated and will not affect anything if you change it.
         int dmouseY = 0;
+
+        /// @brief If any mouse button is currently pressed [read only]
+        /// @ingroup Input
+        /// @details This variable is automatically updated and will not affect anything if you change it.
+        bool mousePressed = false;
 
 
 
@@ -623,6 +631,37 @@ namespace cppgfx {
         T clamp(T value, T min, T max) {
             return std::clamp(value, min, max);
         }
+
+        /// @brief Set the seed for the random number generator
+        /// @ingroup Math
+        /// @param seed The seed
+        void randomSeed(uint32_t seed);
+
+        /// @brief Generate a random integer value between min and max
+        /// @ingroup Math
+        /// @param min The minimum value
+        /// @param max The maximum value
+        /// @return The random value
+        int randomInt(int min, int max);
+
+        /// @brief Generate a random integer value between 0 and the maximum
+        /// @ingroup Math
+        /// @param max The maximum value
+        /// @return The random value
+        int randomInt(int max);
+
+        /// @brief Generate a random floating point value between min and max
+        /// @ingroup Math
+        /// @param min The minimum value
+        /// @param max The maximum value
+        /// @return The random value
+        float random(float min, float max);
+
+        /// @brief Generate a random floating point value between 0 and the maximum
+        /// @ingroup Math
+        /// @param max The maximum value
+        /// @return The random value
+        float random(float max);
 
 
 
