@@ -390,7 +390,10 @@ namespace cppgfx {
         ImGui::SFML::Init(window);
         LoadDefaultImGuiStyle();
 
-        ImGui::GetIO().Fonts->AddFontFromMemoryCompressedTTF(ROBOTO_MEDIUM_COMPRESSED_DATA, ROBOTO_MEDIUM_COMPRESSED_SIZE, 18.0f);
+        ImFontConfig font_cfg;
+        font_cfg.FontDataOwnedByAtlas = false;
+        ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)ROBOTO_MEDIUM_DATA, ROBOTO_MEDIUM_SIZE, 18.0f, &font_cfg);
+
         ImGui::SFML::UpdateFontTexture();
         ImGui::GetIO().FontDefault = ImGui::GetIO().Fonts->Fonts.back();
 
