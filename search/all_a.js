@@ -7,6 +7,7 @@ var searchData=
   ['min_39',['min',['../classcppgfx_1_1App.html#af6685b19a01ed986c84ffb911631d072',1,'cppgfx::App']]],
   ['minute_40',['minute',['../group__Timing.html#gab4d4beab755ae480d7ebf650180a73ee',1,'cppgfx::App']]],
   ['month_41',['month',['../group__Timing.html#ga12cc504587c50f0c1fcfc3280174f44d',1,'cppgfx::App']]],
-  ['mousex_42',['mouseX',['../group__Input.html#ga88e08819531c295d16aab2ebfdea5abb',1,'cppgfx::App']]],
-  ['mousey_43',['mouseY',['../group__Input.html#gaf2a0bf4679738a4436a9a96a20d83e82',1,'cppgfx::App']]]
+  ['mousepressed_42',['mousePressed',['../group__Input.html#ga39d3d277e501f9ba6de27b839af9e6de',1,'cppgfx::App']]],
+  ['mousex_43',['mouseX',['../group__Input.html#ga88e08819531c295d16aab2ebfdea5abb',1,'cppgfx::App']]],
+  ['mousey_44',['mouseY',['../group__Input.html#gaf2a0bf4679738a4436a9a96a20d83e82',1,'cppgfx::App']]]
 ];
