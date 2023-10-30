@@ -478,14 +478,18 @@ namespace cppgfx {
             window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
         }
 
-        ImGui::SFML::Init(window);
+        if (!ImGui::SFML::Init(window)) {
+            throw std::runtime_error("[cppgfx]: Failed to initialize ImGui");
+        }
         LoadDefaultImGuiStyle();
 
         ImFontConfig font_cfg;
         font_cfg.FontDataOwnedByAtlas = false;
         ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)ROBOTO_MEDIUM_DATA, ROBOTO_MEDIUM_SIZE, 18.0f, &font_cfg);
 
-        ImGui::SFML::UpdateFontTexture();
+        if (!ImGui::SFML::UpdateFontTexture()) {
+            throw std::runtime_error("[cppgfx]: Failed to update ImGui font texture");
+        }
         ImGui::GetIO().FontDefault = ImGui::GetIO().Fonts->Fonts.back();
 
         while (window.isOpen()) {
