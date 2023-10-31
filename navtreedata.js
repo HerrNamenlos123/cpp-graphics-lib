@@ -27,10 +27,20 @@ var NAVTREE =
   [ "cppgfx", "index.html", [
     [ "Welcome to cppgfx!", "index.html", [
       [ "What is cppgfx?", "index.html#autotoc_md7", [
-        [ "What's under the hood?", "index.html#autotoc_md8", null ]
+        [ "What's under the hood?", "index.html#autotoc_md8", null ],
+        [ "When NOT to use cppgfx?", "index.html#autotoc_md9", null ]
       ] ],
-      [ "When NOT to use cppgfx?", "index.html#autotoc_md9", null ],
-      [ "How to use cppgfx?", "index.html#autotoc_md10", null ]
+      [ "API Reference", "index.html#autotoc_md10", null ],
+      [ "Getting Started", "index.html#autotoc_md11", [
+        [ "I just want a project to tinker around", "index.html#autotoc_md12", null ],
+        [ "I want to start a serious project on GitHub", "index.html#autotoc_md13", null ],
+        [ "Running the project", "index.html#autotoc_md14", [
+          [ "Using CLion", "index.html#autotoc_md15", null ],
+          [ "Using Visual Studio or the Terminal", "index.html#autotoc_md16", null ]
+        ] ],
+        [ "Example project", "index.html#autotoc_md17", null ]
+      ] ],
+      [ "API Reference", "index.html#autotoc_md18", null ]
     ] ],
     [ "FAQ", "md_docs_markdown_faq.html", null ],
     [ "Getting started", "md_docs_markdown_gettingstarted.html", null ],
