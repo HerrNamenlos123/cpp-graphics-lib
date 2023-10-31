@@ -12,7 +12,8 @@ Students can either write programs in C++ to have the full potential at their fi
 
 ## Documentation/Reference 📃
 
-You can find the documentation and reference at https://herrnamenlos123.github.io/cppgfx/
+You can find the documentation and reference at  
+https://herrnamenlos123.github.io/cppgfx/
 
 ## Portability/Compatibility 📌
 
