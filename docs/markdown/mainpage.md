@@ -55,15 +55,15 @@ If you want a proper GitHub repository with a project using cppgfx, that you wan
 Visit https://github.com/herrnamenlos123/cppgfx-template
 
 Next, use the Template using GitHub:
-![](../assets/clone_template.png)
+![](assets/clone_template.png)
 
 Now, choose a name and create the repository:
-![](../assets/create_repo.png)
+![](assets/create_repo.png)
 
 Awesome! Now you have your own GitHub repository for your project.
 
 Lastly, copy the URL of your own project and clone it:
-![](../assets/clone_project_repo.png)
+![](assets/clone_project_repo.png)
 
 ```
 git clone <your_url>
@@ -100,7 +100,7 @@ To run the project, simply hit `F5`.
 
 Congratulations! You now have cppgfx running and you can change the code to do whatever you like.
 
-![](../assets/example_project.png)
+![](assets/example_project.png)
 
 The `src` folder contains all source files containing implementations of functions.  
 
