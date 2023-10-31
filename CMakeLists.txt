@@ -5,6 +5,7 @@ include(cmake/deps.cmake)
 
 option(BUILD_EXAMPLES "Build examples" ${IS_TOP_LEVEL})
 option(BUILD_DOCS "Build documentation" OFF)
+option(USE_WIN32_DARK_MODE "Use dark mode on Windows" ON)
 
 add_library(${PROJECT_NAME} STATIC
         src/base64.cpp
@@ -24,7 +25,12 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         sfml-system
         ImGui-SFML::ImGui-SFML
         spdlog::spdlog
+        glm::glm
 )
+
+if (USE_WIN32_DARK_MODE)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC USE_WIN32_DARK_MODE)
+endif ()
 
 if (WIN32)
     target_link_libraries(${PROJECT_NAME} PUBLIC opengl32 gdi32 winmm dwmapi)

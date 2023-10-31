@@ -2,6 +2,7 @@
 #ifndef CPPGFX_BASE64_HPP
 #define CPPGFX_BASE64_HPP
 
+#include <cstdint>
 #include <string>
 #include <vector>
 

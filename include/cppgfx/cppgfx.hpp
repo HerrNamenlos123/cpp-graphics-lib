@@ -11,6 +11,9 @@
 #include "spdlog/fmt/std.h"
 #include "spdlog/fmt/ranges.h"
 #include <iostream>
+#include <random>
+
+#include "glm/glm.hpp"
 
 #include "imgui.h"
 
@@ -50,6 +53,12 @@
 /// @defgroup Events
 /// @brief All cppgfx functions you can override, including Events.
 ///
+
+enum class TextAlign {
+    Left,
+    Center,
+    Right
+};
 
 enum class LineCap {
     Round,
@@ -191,6 +200,11 @@ namespace cppgfx {
         ///          This variable is automatically updated and will not affect anything if you change it.
         int dmouseY = 0;
 
+        /// @brief If any mouse button is currently pressed [read only]
+        /// @ingroup Input
+        /// @details This variable is automatically updated and will not affect anything if you change it.
+        bool mousePressed = false;
+
 
 
 
@@ -297,6 +311,11 @@ namespace cppgfx {
         /// @param color The background color
         void background(const sf::Color& color);
 
+        /// @brief Set the background color of the window for the current frame
+        /// @ingroup Graphics
+        /// @param shade The background color for r, g and b [0-255]
+        void background(uint8_t shade);
+
         /// @brief Set the background color of the window
         /// @ingroup Graphics
         /// @param r The red component of the background color [0-255]
@@ -309,6 +328,11 @@ namespace cppgfx {
         /// @ingroup Graphics
         /// @param color The infill color
         void fill(const sf::Color& color);
+
+        /// @brief Set the infill color for primitives
+        /// @ingroup Graphics
+        /// @param shade The infill color for r, g and b [0-255]
+        void fill(uint8_t shade);
 
         /// @brief Set the infill color for primitives
         /// @ingroup Graphics
@@ -325,6 +349,11 @@ namespace cppgfx {
         /// @brief Set the outline color for primitives
         /// @ingroup Graphics
         void stroke(const sf::Color& color);
+
+        /// @brief Set the outline color for primitives
+        /// @ingroup Graphics
+        /// @param shade The outline color for r, g and b [0-255]
+        void stroke(uint8_t shade);
 
         /// @brief Set the outline color for primitives
         /// @ingroup Graphics
@@ -424,6 +453,40 @@ namespace cppgfx {
         /// @param originX The x coordinate of the origin of the vector in pixels, relative to the top left corner of the window
         /// @param originY The y coordinate of the origin of the vector in pixels, relative to the top left corner of the window
         void vector(float vectorX, float vectorY, float originX, float originY);
+
+        /// @brief Set the current font to be used for rendering from now on
+        /// @ingroup Graphics
+        /// @param font The SFML font to use
+        void textFont(const sf::Font& font);
+
+        /// @brief Load a font from a file with a specific size
+        /// @ingroup Graphics
+        /// @param filename The filename of the font to load
+        /// @return The loaded font
+        sf::Font loadFont(const std::string& filename);
+
+        /// @brief Set the current alignment for drawing text
+        /// @ingroup Graphics
+        /// @param alignment The alignment
+        void textAlign(TextAlign alignment);
+
+        /// @brief Calculate the width of a text string in pixels
+        /// @ingroup Graphics
+        /// @param text The text to measure
+        /// @return The width of the text in pixels
+        float textWidth(const std::string& text);
+
+        /// @brief Set the font size of the currently active font
+        /// @ingroup Graphics
+        /// @param size The font size in pixels
+        void textSize(uint32_t size);
+
+        /// @brief Draw text at (x, y)
+        /// @ingroup Graphics
+        /// @param text The text to draw
+        /// @param x The x coordinate of the text in pixels, relative to the top left corner of the window
+        /// @param y The y coordinate of the text in pixels, relative to the top left corner of the window
+        void text(const std::string& text, float x, float y);
 
 
 
@@ -569,6 +632,37 @@ namespace cppgfx {
             return std::clamp(value, min, max);
         }
 
+        /// @brief Set the seed for the random number generator
+        /// @ingroup Math
+        /// @param seed The seed
+        void randomSeed(uint32_t seed);
+
+        /// @brief Generate a random integer value between min and max
+        /// @ingroup Math
+        /// @param min The minimum value
+        /// @param max The maximum value
+        /// @return The random value
+        int randomInt(int min, int max);
+
+        /// @brief Generate a random integer value between 0 and the maximum
+        /// @ingroup Math
+        /// @param max The maximum value
+        /// @return The random value
+        int randomInt(int max);
+
+        /// @brief Generate a random floating point value between min and max
+        /// @ingroup Math
+        /// @param min The minimum value
+        /// @param max The maximum value
+        /// @return The random value
+        float random(float min, float max);
+
+        /// @brief Generate a random floating point value between 0 and the maximum
+        /// @ingroup Math
+        /// @param max The maximum value
+        /// @return The random value
+        float random(float max);
+
 
 
 
@@ -644,13 +738,18 @@ namespace cppgfx {
         uint32_t m_widthBeforeFullscreen = 0;
         uint32_t m_heightBeforeFullscreen = 0;
 
+        inline static sf::Font m_defaultFont;
+
         struct DrawStyle {
             sf::Color m_fillColor = sf::Color::White;
             sf::Color m_strokeColor = sf::Color::Black;
             float m_strokeWeight = 0.f;
+            sf::Font m_font = m_defaultFont;
+            uint32_t m_fontSize = 18;
 
             LineCap m_lineCap = LineCap::Round;
             RectMode m_rectMode = RectMode::Corner;
+            TextAlign m_textAlign = TextAlign::Left;
         };
         std::vector<DrawStyle> m_drawStyleStack;
 

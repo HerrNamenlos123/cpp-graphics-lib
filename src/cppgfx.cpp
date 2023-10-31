@@ -11,6 +11,11 @@ namespace cppgfx {
 
     App::App() {
         m_instance = this;
+
+        if (!m_defaultFont.loadFromMemory(ROBOTO_MEDIUM_DATA, ROBOTO_MEDIUM_SIZE)) {
+            throw std::runtime_error("[cppgfx]: Failed to load SFML default font: Roboto Medium");
+        }
+
         m_drawStyleStack.emplace_back();
     }
 
@@ -27,12 +32,20 @@ namespace cppgfx {
         window.clear(color);
     }
 
+    void App::background(uint8_t shade) {
+        window.clear(sf::Color(shade, shade, shade));
+    }
+
     void App::background(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
         window.clear(sf::Color(r, g, b, a));
     }
 
     void App::fill(const sf::Color& color) {
         m_drawStyleStack.back().m_fillColor = color;
+    }
+
+    void App::fill(uint8_t shade) {
+        m_drawStyleStack.back().m_fillColor = sf::Color(shade, shade, shade);
     }
 
     void App::fill(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
@@ -45,6 +58,10 @@ namespace cppgfx {
 
     void App::stroke(const sf::Color& color) {
         m_drawStyleStack.back().m_strokeColor = color;
+    }
+
+    void App::stroke(uint8_t shade) {
+        m_drawStyleStack.back().m_strokeColor = sf::Color(shade, shade, shade);
     }
 
     void App::stroke(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
@@ -181,6 +198,60 @@ namespace cppgfx {
         pop();
     }
 
+    void App::textFont(const sf::Font& font) {
+        m_drawStyleStack.back().m_font = font;
+    }
+
+    sf::Font App::loadFont(const std::string& filename) {
+        sf::Font font;
+        if (!font.loadFromFile(filename)) {
+            throw std::runtime_error("[cppgfx] Failed to load font: " + filename);
+        }
+        return font;
+    }
+
+    void App::textAlign(TextAlign align) {
+        m_drawStyleStack.back().m_textAlign = align;
+    }
+
+    float App::textWidth(const std::string& text) {
+        sf::Text sfText;
+        sfText.setFont(m_drawStyleStack.back().m_font);
+        sfText.setString(text);
+        sfText.setCharacterSize(m_drawStyleStack.back().m_fontSize);
+        return sfText.getLocalBounds().width;
+    }
+
+    void App::textSize(uint32_t size) {
+        m_drawStyleStack.back().m_fontSize = size;
+    }
+
+    void App::text(const std::string& text, float x, float y) {
+        sf::Text sfText;
+        sfText.setFont(m_drawStyleStack.back().m_font);
+        sfText.setString(text);
+        sfText.setCharacterSize(m_drawStyleStack.back().m_fontSize);
+        sfText.setFillColor(m_drawStyleStack.back().m_fillColor);
+        sfText.setOutlineColor(m_drawStyleStack.back().m_strokeColor);
+        sfText.setOutlineThickness(m_drawStyleStack.back().m_strokeWeight);
+        sfText.setOrigin({ 0, sfText.getLocalBounds().top });
+        if (m_drawStyleStack.back().m_textAlign == TextAlign::Left) {
+            sfText.setPosition({ x, y });
+        }
+        else if (m_drawStyleStack.back().m_textAlign == TextAlign::Center) {
+            sfText.setPosition({ x - sfText.getLocalBounds().width / 2.0f, y });
+        }
+        else if (m_drawStyleStack.back().m_textAlign == TextAlign::Right) {
+            sfText.setPosition({ x - sfText.getLocalBounds().width, y });
+        }
+        else {
+            throw std::runtime_error("Unknown text align");
+        }
+        window.draw(sfText);
+    }
+
+
+
 
 
 
@@ -239,6 +310,26 @@ namespace cppgfx {
 
     float App::degrees(float radians) {
         return radians * (180.0f / PI);
+    }
+
+    void App::randomSeed(uint32_t seed) {
+        std::srand(seed);
+    }
+
+    int App::randomInt(int min, int max) {
+        return min + std::rand() / (RAND_MAX / (max - min));
+    }
+
+    int App::randomInt(int max) {
+        return random(0, max);
+    }
+
+    float App::random(float min, float max) {
+        return min + static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / (max - min)));
+    }
+
+    float App::random(float max) {
+        return random(0.0f, max);
     }
 
 
@@ -387,11 +478,18 @@ namespace cppgfx {
             window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
         }
 
-        ImGui::SFML::Init(window);
+        if (!ImGui::SFML::Init(window)) {
+            throw std::runtime_error("[cppgfx]: Failed to initialize ImGui");
+        }
         LoadDefaultImGuiStyle();
 
-        ImGui::GetIO().Fonts->AddFontFromMemoryCompressedTTF(ROBOTO_MEDIUM_COMPRESSED_DATA, ROBOTO_MEDIUM_COMPRESSED_SIZE, 18.0f);
-        ImGui::SFML::UpdateFontTexture();
+        ImFontConfig font_cfg;
+        font_cfg.FontDataOwnedByAtlas = false;
+        ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)ROBOTO_MEDIUM_DATA, ROBOTO_MEDIUM_SIZE, 18.0f, &font_cfg);
+
+        if (!ImGui::SFML::UpdateFontTexture()) {
+            throw std::runtime_error("[cppgfx]: Failed to update ImGui font texture");
+        }
         ImGui::GetIO().FontDefault = ImGui::GetIO().Fonts->Fonts.back();
 
         while (window.isOpen()) {
@@ -417,6 +515,7 @@ namespace cppgfx {
             mouseY = sf::Mouse::getPosition(window).y;
             dmouseX = mouseX - pmouseX;
             dmouseY = mouseY - pmouseY;
+            mousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right);
 
             // Handle events
             sf::Event event {};
