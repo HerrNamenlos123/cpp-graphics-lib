@@ -1392,7 +1392,8 @@ HTML_EXTRA_FILES       = @doxygen_awesome_css_SOURCE_DIR@/doxygen-awesome-fragme
                          docs/assets/clone_template.png \
                          docs/assets/cpp.png \
                          docs/assets/create_repo.png \
-                         docs/assets/example_project.png
+                         docs/assets/example_project.png \
+                         docs/favicon.ico
 
 # The HTML_COLORSTYLE tag can be used to specify if the generated HTML output
 # should be rendered with a dark or light theme.
