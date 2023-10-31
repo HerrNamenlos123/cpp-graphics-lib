@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9"/>
     <meta name="generator" content="Doxygen 1.9.1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>cppgfx: FAQ</title>
+    <title>cppgfx: Programming concepts</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -84,7 +84,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('md_docs_markdown_faq.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('md_docs_markdown_concepts.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -104,25 +104,45 @@ $(document).ready(function(){initNavTree('md_docs_markdown_faq.html',''); initRe
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">FAQ </div>  </div>
+<div class="title">Programming concepts </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2><a class="anchor" id="autotoc_md8"></a>
-What the heck is this App class? Why not just global functions like in Processing?</h2>
-<p>There are many ways to let a user write functions. For example, in Processing there are a few global functions and you simply write global variables at the top of the file. The problem with doing this is that you have no control over the lifetime.</p>
-<p>Global variables outlive the main function and are automatically cleaned up after the main function has returned. This is usually not an issue for trivially destructible types. But when the global object is a complex type like an SFML framebuffer or an SFML GPU texture, they have access to underlying resources like OpenGL handles.</p>
-<p>This would mean that at the end of the main function, the resources are cleaned up and handles are returned to the operating system, then the main function returns, and only then are the global variables destructed. Which means the SFML types might try to access the OpenGL handles, which are no longer valid, causing a crash. This is why global variables are generally dangerous and should be avoided. No variable should outlive the scope of the main function.</p>
-<p>A simple solution to this is to create a class that holds all the global variables and functions. This class is then constructed, called and destructed within the scope of the main function. This way, all the resources are automatically cleaned up before the main function returns and everything is fine.</p>
-<p>This is the reason you should not ever write a global variable in cppgfx, instead make it part of the App class.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
-Can I write anything outside of the App class?</h2>
-<p>Yes, you can write as many classes and functions outside of the main App class, except global variables. See above why you should avoid global variables.</p>
-<p>If you must access the app instance from outside, you can use the prefix <code>App::Get().</code> to access any public members. </p><div class="fragment"><div class="line"><span class="comment">// Inside of the App class:</span></div>
-<div class="line">setTitle(<span class="stringliteral">&quot;Hello World&quot;</span>);</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// Equivalent outside of App:</span></div>
-<div class="line">App::Get().setTitle(<span class="stringliteral">&quot;Hello World&quot;</span>);</div>
-</div><!-- fragment --><p><code>App::Get().</code> will always point to the last <code><a class="el" href="classcppgfx_1_1App.html" title="The main application class.">cppgfx::App</a></code> instance constructed (which should be the only one). Keep in mind that this points to the <code><a class="el" href="classcppgfx_1_1App.html" title="The main application class.">cppgfx::App</a></code> parent class itself and not the class you derived from it. Thus, this can only be used to access built-in functions, but not any custom functions and variables you wrote yourself. </p>
+<div class="textblock"><p>This section of the cppgfx documentation contains many code example with the intention of teaching you how to do certain things. When learning programming, you will at one point encounter many of these problems and even if you don't, it's worth it to read through them to get a better understanding of what is happening.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Table of Contents</h1>
+<ul>
+<li><a href="#1-objects-in-motion">Objects in Motion</a><ul>
+<li><a href="#11-continuous-motion">Continuous motion</a></li>
+</ul>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
+1. Objects in motion</h1>
+<h2><a class="anchor" id="autotoc_md3"></a>
+1.1 Continuous motion</h2>
+<h3><a class="anchor" id="autotoc_md4"></a>
+Problem</h3>
+<p>At some point in time you will want to move an object around the screen. The simplest way is to move the object a specific amount of pixels every frame. A more advanced method is by giving the object a velocity and acceleration.</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> update() {</div>
+<div class="line">    <span class="keywordtype">object</span>.position.x += <span class="keywordtype">object</span>.velocity.x;</div>
+<div class="line">    <span class="keywordtype">object</span>.position.y += <span class="keywordtype">object</span>.velocity.y;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>But all of these variants are flawed: The actual speed of the object is dependent on the framerate. In reality, the framerate will always fluctuate due to non-constant system load. This has the effect that the object will move faster and slower depending on how much work the computer has to do. Not great for games.</p>
+<p>In this case, the position will change by Velocity-units per frame, most likely <b>pixels/frame</b>. But the rate of frames is not constant in the real world.</p>
+<h3><a class="anchor" id="autotoc_md5"></a>
+Solution</h3>
+<p>The solution is to use the elapsed frame time as a measure of how far to move the object.</p>
+<p>The <code>frameTime</code> variable can be used for this job. It represents the time that has elapsed since the last frame, in seconds.</p>
+<p>Example:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> update() {</div>
+<div class="line">    <span class="keywordtype">object</span>.position.x += <span class="keywordtype">object</span>.velocity.x * frameTime;</div>
+<div class="line">    <span class="keywordtype">object</span>.position.y += <span class="keywordtype">object</span>.velocity.y * frameTime;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Now, every frame, the velocity is multiplied with the time since the last frame. If a lot of time passed since the last frame, it moves a lot, and if only little time passed, the object only moves a little bit. This has the effect that the object will move the same distance every second, no matter how many frames are rendered.</p>
+<p>The unit of the actual speed of the object now successfully changed from <b>pixels/frame</b> to <b>pixels/second</b>.</p>
+<h3><a class="anchor" id="autotoc_md6"></a>
+Conclusion</h3>
+<p>Whenever you want steady motion for something, remember to always compensate for time since you can never be sure at what rate your function is called. The <code>frameTime</code> variable is your friend. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

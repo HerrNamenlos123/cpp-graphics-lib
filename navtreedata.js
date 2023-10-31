@@ -26,21 +26,31 @@ var NAVTREE =
 [
   [ "cppgfx", "index.html", [
     [ "Welcome to cppgfx!", "index.html", [
-      [ "What is cppgfx?", "index.html#autotoc_md7", [
-        [ "What's under the hood?", "index.html#autotoc_md8", null ],
-        [ "When NOT to use cppgfx?", "index.html#autotoc_md9", null ]
+      [ "What is cppgfx?", "index.html#autotoc_md14", [
+        [ "What's under the hood?", "index.html#autotoc_md15", null ],
+        [ "When NOT to use cppgfx?", "index.html#autotoc_md16", null ]
       ] ],
-      [ "API Reference", "index.html#autotoc_md10", null ],
-      [ "Getting Started", "index.html#autotoc_md11", [
-        [ "I just want a project to tinker around", "index.html#autotoc_md12", null ],
-        [ "I want to start a serious project on GitHub", "index.html#autotoc_md13", null ],
-        [ "Running the project", "index.html#autotoc_md14", [
-          [ "Using CLion", "index.html#autotoc_md15", null ],
-          [ "Using Visual Studio or the Terminal", "index.html#autotoc_md16", null ]
+      [ "API Reference", "index.html#autotoc_md17", null ],
+      [ "Getting Started", "index.html#autotoc_md18", [
+        [ "I just want a project to tinker around", "index.html#autotoc_md19", null ],
+        [ "I want to start a serious project on GitHub", "index.html#autotoc_md20", null ],
+        [ "Running the project", "index.html#autotoc_md21", [
+          [ "Using CLion", "index.html#autotoc_md22", null ],
+          [ "Using Visual Studio or the Terminal", "index.html#autotoc_md23", null ]
         ] ],
-        [ "Example project", "index.html#autotoc_md17", null ]
+        [ "Example project", "index.html#autotoc_md24", null ]
       ] ],
-      [ "API Reference", "index.html#autotoc_md18", null ]
+      [ "API Reference", "index.html#autotoc_md25", null ]
+    ] ],
+    [ "Programming concepts", "md_docs_markdown_concepts.html", [
+      [ "Table of Contents", "md_docs_markdown_concepts.html#autotoc_md1", null ],
+      [ "1. Objects in motion", "md_docs_markdown_concepts.html#autotoc_md2", [
+        [ "1.1 Continuous motion", "md_docs_markdown_concepts.html#autotoc_md3", [
+          [ "Problem", "md_docs_markdown_concepts.html#autotoc_md4", null ],
+          [ "Solution", "md_docs_markdown_concepts.html#autotoc_md5", null ],
+          [ "Conclusion", "md_docs_markdown_concepts.html#autotoc_md6", null ]
+        ] ]
+      ] ]
     ] ],
     [ "FAQ", "md_docs_markdown_faq.html", null ],
     [ "Getting started", "md_docs_markdown_gettingstarted.html", null ],
