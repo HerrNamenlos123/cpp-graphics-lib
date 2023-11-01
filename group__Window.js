@@ -1,9 +1,9 @@
 var group__Window =
 [
-    [ "What the heck is this App class? Why not just global functions like in Processing?", "md_docs_markdown_faq.html#autotoc_md8", null ],
-    [ "Can I write anything outside of the App class?", "md_docs_markdown_faq.html#autotoc_md9", null ],
-    [ "Installation", "md_docs_markdown_gettingstarted.html#autotoc_md11", [
-      [ "Prerequisites", "md_docs_markdown_gettingstarted.html#autotoc_md12", null ]
+    [ "What the heck is this App class? Why not just global functions like in Processing?", "md_docs_markdown_faq.html#autotoc_md14", null ],
+    [ "Can I write anything outside of the App class?", "md_docs_markdown_faq.html#autotoc_md15", null ],
+    [ "Installation", "md_docs_markdown_gettingstarted.html#autotoc_md17", [
+      [ "Prerequisites", "md_docs_markdown_gettingstarted.html#autotoc_md18", null ]
     ] ],
     [ "close", "group__Window.html#gabf10cdaaa2f86703219f115394825c61", null ],
     [ "exitFullscreen", "group__Window.html#ga3825ebcd8b6cf2b443a90f691066ef07", null ],

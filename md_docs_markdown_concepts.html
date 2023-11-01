@@ -108,19 +108,124 @@ $(document).ready(function(){initNavTree('md_docs_markdown_concepts.html',''); i
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>This section of the cppgfx documentation contains many code example with the intention of teaching you how to do certain things. When learning programming, you will at one point encounter many of these problems and even if you don't, it's worth it to read through them to get a better understanding of what is happening.</p>
+<p>This document tries to teach you programming concepts, and solutions using modern C++. <br  />
+ Many of the proposed solutions are not applicable if you program using plain C and you will have to write the algorithms by hand.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Table of Contents</h1>
 <ul>
-<li><a href="#1-objects-in-motion">Objects in Motion</a><ul>
-<li><a href="#11-continuous-motion">Continuous motion</a></li>
+<li><a href="#console-prints-and-string-formatting">Console prints and String formatting</a></li>
+<li><a href="#data-structures-and-algorithms">Data structures and algorithms</a><ul>
+<li><a href="#iterating-over-arrays">Iterating over arrays</a></li>
+<li><a href="#removing-multiple-elements-from-an-array">Removing multiple elements from an array</a></li>
+</ul>
+</li>
+<li><a href="#objects-in-motion">Objects in Motion</a><ul>
+<li><a href="#continuous-motion">Continuous motion</a></li>
 </ul>
 </li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
-1. Objects in motion</h1>
-<h2><a class="anchor" id="autotoc_md3"></a>
-1.1 Continuous motion</h2>
-<h3><a class="anchor" id="autotoc_md4"></a>
+Console prints and String formatting</h1>
+<p>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
+<p>cppgfx uses spdlog, which in turn uses <a href="https://github.com/fmtlib/fmt">fmt</a> under the hood. fmt is a string formatting library that implement Python-like string formatting.</p>
+<p>To find out how to format something, google how to do it in Python. The syntax is equivalent.</p>
+<p>cppgfx provides the <code>print()</code> and <code>println()</code> functions, which will print formatted string to the console. <code>print()</code> will only print the formatted string and <code>println()</code> will additionally print a new-line character in order to move into the next line.</p>
+<p>Example: </p><div class="fragment"><div class="line">print(<span class="stringliteral">&quot;Hello world!&quot;</span>);      </div>
+<div class="line"><span class="comment">// -&gt; &quot;Hello world!&quot;</span></div>
+<div class="line"> </div>
+<div class="line">print(<span class="stringliteral">&quot;Hello {}&quot;</span>, 5);       </div>
+<div class="line"><span class="comment">// -&gt; &quot;Hello 5&quot;</span></div>
+<div class="line"> </div>
+<div class="line">print(<span class="stringliteral">&quot;{} loves using {} {} times a week&quot;</span>, <span class="stringliteral">&quot;Tom&quot;</span>, <span class="stringliteral">&quot;cppgfx&quot;</span>, 5);       </div>
+<div class="line"><span class="comment">// -&gt; &quot;Tom loves using cppgfx 5 times a week&quot;</span></div>
+<div class="line"> </div>
+<div class="line">print(<span class="stringliteral">&quot;{}/{} is {}, but {}/{} is {}, because of integer division&quot;</span>, 7.0, 2.0, 7.0/2.0, 7, 2, 7/2);</div>
+<div class="line"><span class="comment">// -&gt; &quot;7.0/2.0 is 3.5, but 7/2 is {}, because of integer division&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">float</span> height = 50.2f;</div>
+<div class="line"><span class="keywordtype">int</span> count = 128;</div>
+<div class="line">std::string message = <span class="stringliteral">&quot;Hello&quot;</span>;</div>
+<div class="line">print(<span class="stringliteral">&quot;Height = {}, count = {}, message = {}&quot;</span>, height, count, message);</div>
+<div class="line"><span class="comment">// -&gt; &quot;Height = 50.2, count = 128, message = Hello&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">float</span> pi = 3.1415926535f;</div>
+<div class="line">print(<span class="stringliteral">&quot;For me, pi is {:.02f}&quot;</span>, pi);     <span class="comment">// Number of digits after floating point</span></div>
+<div class="line"><span class="comment">// -&gt; &quot;For me, pi is 3.14&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> hexValue = 0x03A9;</div>
+<div class="line">print(<span class="stringliteral">&quot;The value is {}&quot;</span>, hexValue); </div>
+<div class="line"><span class="comment">// -&gt; &quot;The value is 937&quot;</span></div>
+<div class="line">print(<span class="stringliteral">&quot;The value is {:x}&quot;</span>, hexValue); </div>
+<div class="line"><span class="comment">// -&gt; &quot;The value is 3a9&quot;</span></div>
+<div class="line">print(<span class="stringliteral">&quot;The value is {:X}&quot;</span>, hexValue); </div>
+<div class="line"><span class="comment">// -&gt; &quot;The value is 3A9&quot;</span></div>
+<div class="line">print(<span class="stringliteral">&quot;The value is {:06X}&quot;</span>, hexValue); </div>
+<div class="line"><span class="comment">// -&gt; &quot;The value is 0003A9&quot;</span></div>
+<div class="line">print(<span class="stringliteral">&quot;The value is 0x{:04X}&quot;</span>, hexValue); </div>
+<div class="line"><span class="comment">// -&gt; &quot;The value is 0x03A9&quot;</span></div>
+</div><!-- fragment --><p>To find out how to format something, google how to do it in Python. The syntax is equivalent. <a href="https://fmt.dev/latest/api.html">Here is the original fmt documentation</a>, but it is not so easy to read.</p>
+<p>One last thing to note is that everything you can do with the print functions, can also be done with <code>fmt::format()</code>, which is the function behind print. The difference is it returns the formatted string instead of printing to the console.</p>
+<div class="fragment"><div class="line">std::string date = fmt::format(<span class="stringliteral">&quot;{:02}.{:02}.{:04}&quot;</span>, day(), month(), year());</div>
+<div class="line"><span class="comment">// Example -&gt; date = &quot;01.10.2023&quot;</span></div>
+<div class="line">println(<span class="stringliteral">&quot;The date is {}&quot;</span>, date);</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
+Data structures and algorithms</h1>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Iterating over arrays</h2>
+<p>This is as easy as it sounds. Here is the simplest method:</p>
+<div class="fragment"><div class="line">std::vector&lt;int&gt; array = { 5, -6, 87, -12, 65 };</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; array.size(); i++) {</div>
+<div class="line">    println(<span class="stringliteral">&quot;[{}] = {}&quot;</span>, i, array[i]);</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
+Removing multiple elements from an array</h2>
+<p>Be careful! Removing multiple elements from an array sounds very trivial, but the devil is in the details.</p>
+<h3><a class="anchor" id="autotoc_md6"></a>
+Problem</h3>
+<p>Say you have a vector of objects and you want to remove all objects that match a certain condition. For example, you have an array of cars, and you want to remove all cars that have less than 100Hp. Easy, right?</p>
+<div class="fragment"><div class="line">std::vector&lt;Car&gt; cars = { Car(120), Car(80), Car(67), Car(150), Car(90) };</div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; cars.size(); i++) {</div>
+<div class="line">    <span class="keywordflow">if</span> (cars[i].horsepower &lt; 100) {</div>
+<div class="line">        cars.erase(cars.begin() + i);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment --><p><code>array.erase(array.begin() + index)</code> can be used to remove an element from an array.</p>
+<p>This loop has a significant flaw. The issue is that we are iterating over a container while modifying it. In this example, the first car is stronger, so we keep it. Now i is 1 (the second car), and it is weak, so we remove it. But now the third car shifts forward in place of the second car, leaving the array at length 4. Next, we look at the third car, which has 150Hp since it was shifted forwards. See, the third car was missed. But even worse when we look at the fourth car, we remove it too, and when we try to look at the fifth car (since the length was originally five), we get an out of bounds error since the array is only 3 elements long anymore.</p>
+<p>This is why you should never modify a container while iterating over it.</p>
+<h3><a class="anchor" id="autotoc_md7"></a>
+Solution</h3>
+<p>One possible solution is to additionally move the index back to the front:</p>
+<div class="fragment"><div class="line">std::vector&lt;Car&gt; cars = { Car(120), Car(80), Car(67), Car(150), Car(90) };</div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; cars.size(); i++) {</div>
+<div class="line">    <span class="keywordflow">if</span> (cars[i].horsepower &lt; 100) {</div>
+<div class="line">        cars.erase(cars.begin() + i);</div>
+<div class="line">        i--;  <span class="comment">// We just removed a car, so we also need to go a step back to not miss a car</span></div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>This solves the issue.</p>
+<p>Another way using modern C++ functions:</p>
+<div class="fragment"><div class="line">std::vector&lt;Car&gt; cars = { Car(120), Car(80), Car(67), Car(150), Car(90) };</div>
+<div class="line">cars.erase(std::remove_if(cars.begin(), cars.end(), [](Car&amp; car) { return car.horsepower &lt; 100; }), cars.end());</div>
+</div><!-- fragment --><p>This is very advanced and you should only use if you understand it. What happens is that we call <code>std::remove_if</code>, which takes the iterator <code>cars.begin()</code>, which is a pointer to the beginning of the array, and <code>cars.end()</code>, which is a pointer to the end of the array. Lastly, it takes in a lambda function, which is called for every element in the array. You must return true if you want to remove the element, and false if you want to keep it. At the very end, we call <code>cars.erase</code> which takes the result of <code>std::remove_if</code> and the iterator <code>cars.end()</code> which is a pointer to the end of the array.</p>
+<div class="fragment"><div class="line">std::vector&lt;Car&gt; cars = { Car(120), Car(80), Car(67), Car(150), Car(90) };</div>
+<div class="line"> </div>
+<div class="line">cars.erase(     <span class="comment">// This function erases the elements if we tell it how</span></div>
+<div class="line">        std::remove_if(     <span class="comment">// This defines which elements to remove</span></div>
+<div class="line">                cars.begin(), <span class="comment">// An iterator which points to the beginning of the array</span></div>
+<div class="line">                cars.end(),   <span class="comment">// An iterator which points to the element one past the end of the array</span></div>
+<div class="line">                [](Car&amp; car) {  <span class="comment">// And an inline lambda function, which takes a reference to a Car as a parameter</span></div>
+<div class="line">                    return car.horsepower &lt; 100;    <span class="comment">// And returns a boolean, whether to remove this element or not </span></div>
+<div class="line">                }               <span class="comment">// This lambda is called for every element that is checked</span></div>
+<div class="line">        ), </div>
+<div class="line">        cars.end()</div>
+<div class="line">);</div>
+</div><!-- fragment --><p>This function does all of this index-shifting internally and we do not need to care about it. We can elevate our level of problem-solving to another level by not specifying WHAT to do and HOW to remove elements, instead we only provide a condition and the rest is done automatically.</p>
+<h1><a class="anchor" id="autotoc_md8"></a>
+Objects in motion</h1>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Continuous motion</h2>
+<h3><a class="anchor" id="autotoc_md10"></a>
 Problem</h3>
 <p>At some point in time you will want to move an object around the screen. The simplest way is to move the object a specific amount of pixels every frame. A more advanced method is by giving the object a velocity and acceleration.</p>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> update() {</div>
@@ -129,7 +234,7 @@ Problem</h3>
 <div class="line">}</div>
 </div><!-- fragment --><p>But all of these variants are flawed: The actual speed of the object is dependent on the framerate. In reality, the framerate will always fluctuate due to non-constant system load. This has the effect that the object will move faster and slower depending on how much work the computer has to do. Not great for games.</p>
 <p>In this case, the position will change by Velocity-units per frame, most likely <b>pixels/frame</b>. But the rate of frames is not constant in the real world.</p>
-<h3><a class="anchor" id="autotoc_md5"></a>
+<h3><a class="anchor" id="autotoc_md11"></a>
 Solution</h3>
 <p>The solution is to use the elapsed frame time as a measure of how far to move the object.</p>
 <p>The <code>frameTime</code> variable can be used for this job. It represents the time that has elapsed since the last frame, in seconds.</p>
@@ -140,7 +245,7 @@ Solution</h3>
 <div class="line">}</div>
 </div><!-- fragment --><p>Now, every frame, the velocity is multiplied with the time since the last frame. If a lot of time passed since the last frame, it moves a lot, and if only little time passed, the object only moves a little bit. This has the effect that the object will move the same distance every second, no matter how many frames are rendered.</p>
 <p>The unit of the actual speed of the object now successfully changed from <b>pixels/frame</b> to <b>pixels/second</b>.</p>
-<h3><a class="anchor" id="autotoc_md6"></a>
+<h3><a class="anchor" id="autotoc_md12"></a>
 Conclusion</h3>
 <p>Whenever you want steady motion for something, remember to always compensate for time since you can never be sure at what rate your function is called. The <code>frameTime</code> variable is your friend. </p>
 </div></div><!-- contents -->

@@ -108,32 +108,32 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_docs_markdown_mainpage"></a> </p>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md20"></a>
 What is cppgfx?</h1>
 <p>cppgfx is a C++17 graphics library, which is heavily inspired by <a href="https://processing.org/">Processing</a>. It is designed to be easy to use, while still being fast and flexible. The main goal is to encourage beginner programmers to program their own ideas while having a ton of features at their fingertips.</p>
 <p>It was created because usually students are taught programming by using the command line, which is not very exciting. cppgfx tries to change this so that students already have a boilerplate project and can bring their own ideas to life. Projects can range from simple visual effects to fully featured games and scientific data visualization.</p>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 What's under the hood?</h2>
 <p>cppgfx is based on some of the best supported C++ libraries, such as <a href="https://www.sfml-dev.org/">SFML</a> and <a href="https://github.com/ocornut/imgui">Dear ImGui</a>. The bridge is provided by <a href="https://github.com/SFML/imgui-sfml">ImGui-SFML</a>.</p>
 <p>SFML is a graphics framework targeted at 2D game development, while ImGui is a GUI library. This allows you to create gorgeous minigames with pretty GUI, or whatever you would like to visualize.</p>
 <p>There are more libraries in cppgfx, for example <a href="https://github.com/gabime/spdlog">spdlog</a> for logging and <a href="https://github.com/g-truc/glm">glm</a> for vector math and matrix operations. Many others are not yet listed or yet to come.</p>
 <p>Additionally, a serial library for Arduino communication is planned, as well as one for 3D rendering. Feel free to file an issue if you have any feature ideas or suggestions for future libraries!</p>
-<h2><a class="anchor" id="autotoc_md16"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 When NOT to use cppgfx?</h2>
 <p>cppgfx is NOT a fully featured game engine or alike, and is not intended to be used for any sort of production. You can use it however you like, but it was never designed for more than mid-sized educational projects on a single computer.</p>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 API Reference</h1>
 <p>See <a href="modules.html">Modules</a> to see all available functions you can call.</p>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Getting Started</h1>
 <p>To get started with cppgfx, the quickest way is by using the template repository.</p>
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md25"></a>
 I just want a project to tinker around</h2>
 <p>If you just want to try things out to learn the programming languages, and you do not intend to use the project for anything serious, simply clone the template repository.</p>
 <p>Open a terminal and enter: <br  />
  </p><div class="fragment"><div class="line">git clone https://github.com/HerrNamenlos123/cppgfx-template.git</div>
 </div><!-- fragment --><p>Now continue with the section <a href="#running-the-project">Running the project</a>.</p>
-<h2><a class="anchor" id="autotoc_md20"></a>
+<h2><a class="anchor" id="autotoc_md26"></a>
 I want to start a serious project on GitHub</h2>
 <p>If you want a proper GitHub repository with a project using cppgfx, that you want to push commits to, use the Template repository on GitHub.</p>
 <p>Visit <a href="https://github.com/herrnamenlos123/cppgfx-template">https://github.com/herrnamenlos123/cppgfx-template</a></p>
@@ -143,22 +143,22 @@ I want to start a serious project on GitHub</h2>
 <p>Lastly, copy the URL of your own project and clone it: <img src="clone_project_repo.png" alt="" class="inline"/></p>
 <div class="fragment"><div class="line">git clone &lt;your_url&gt;</div>
 </div><!-- fragment --><p>Now continue with the section <a href="#running-the-project">Running the project</a>.</p>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md27"></a>
 Running the project</h2>
 <p>First of all, you need <a href="https://cmake.org/download/">CMake</a>. Here is the <a href="https://github.com/Kitware/CMake/releases/download/v3.28.0-rc3/cmake-3.28.0-rc3-windows-x86_64.msi">direct download link for Windows 64 bit</a></p>
 <p>To build the project, you must choose which IDE to use. You can choose between <a href="https://www.jetbrains.com/clion/">CLion</a> and <a href="https://visualstudio.microsoft.com/de/">Visual Studio</a>. Visual Studio <b>Code</b> is NOT Visual Studio!!!</p>
 <p>You must have a JetBrains License to use CLion, if you study at TU Graz you can create a Jetbrains account using your TU Email. Visual Studio Community is free.</p>
 <p>If you want to learn proper coding, I suggest getting CLion, if you just want to build the project, use Visual Studio and install the C++ workload.</p>
 <p>If you just want to compile using the terminal you can do that too, but you must already have a compiler installed. You can install Visual Studio for the compiler, and then compile using the terminal anyways.</p>
-<h3><a class="anchor" id="autotoc_md22"></a>
+<h3><a class="anchor" id="autotoc_md28"></a>
 Using CLion</h3>
 <p>When CLion is configured, open the folder of the repository you just cloned as a project in CLion. Then, wait for the CMake task in the bottom left (green dot) to finish. After that, simply click <code>Run</code> in the top right corner. The project should run successfully.</p>
-<h3><a class="anchor" id="autotoc_md23"></a>
+<h3><a class="anchor" id="autotoc_md29"></a>
 Using Visual Studio or the Terminal</h3>
 <p>After Visual Studio is installed, enter the repository folder in a terminal. Now, simply call <code>./run</code>. This should configure the project using CMake, build and run the project. Now you can either continue to run the project using <code>./run</code>, or you can open Visual Studio.</p>
 <p>You do this by going into the <code>build</code> folder that was generated, and inside you will find a <code>.sln</code> file that you can double-click. Now Visual Studio will open.</p>
 <p>Next time you can simply open Visual Studio and select the project from the list. To run the project, simply hit <code>F5</code>.</p>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 Example project</h2>
 <p>Congratulations! You now have cppgfx running and you can change the code to do whatever you like.</p>
 <p><img src="example_project.png" alt="" class="inline"/></p>
@@ -169,7 +169,7 @@ Example project</h2>
 <p><code>CMakeLists.txt</code> defines how your project is built. <br  />
  You can change the line <code>project(MyProject VERSION 1.0.0 LANGUAGES C CXX)</code> to the project name and version you want. Be careful with the rest of the file.</p>
 <p>Have fun coding!</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 API Reference</h1>
 <p>Finally, see <a href="modules.html">Modules</a> to see all available functions you can call. </p>
 </div></div><!-- PageDoc -->

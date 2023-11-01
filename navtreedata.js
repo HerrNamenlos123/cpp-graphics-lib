@@ -26,29 +26,37 @@ var NAVTREE =
 [
   [ "cppgfx", "index.html", [
     [ "Welcome to cppgfx!", "index.html", [
-      [ "What is cppgfx?", "index.html#autotoc_md14", [
-        [ "What's under the hood?", "index.html#autotoc_md15", null ],
-        [ "When NOT to use cppgfx?", "index.html#autotoc_md16", null ]
+      [ "What is cppgfx?", "index.html#autotoc_md20", [
+        [ "What's under the hood?", "index.html#autotoc_md21", null ],
+        [ "When NOT to use cppgfx?", "index.html#autotoc_md22", null ]
       ] ],
-      [ "API Reference", "index.html#autotoc_md17", null ],
-      [ "Getting Started", "index.html#autotoc_md18", [
-        [ "I just want a project to tinker around", "index.html#autotoc_md19", null ],
-        [ "I want to start a serious project on GitHub", "index.html#autotoc_md20", null ],
-        [ "Running the project", "index.html#autotoc_md21", [
-          [ "Using CLion", "index.html#autotoc_md22", null ],
-          [ "Using Visual Studio or the Terminal", "index.html#autotoc_md23", null ]
+      [ "API Reference", "index.html#autotoc_md23", null ],
+      [ "Getting Started", "index.html#autotoc_md24", [
+        [ "I just want a project to tinker around", "index.html#autotoc_md25", null ],
+        [ "I want to start a serious project on GitHub", "index.html#autotoc_md26", null ],
+        [ "Running the project", "index.html#autotoc_md27", [
+          [ "Using CLion", "index.html#autotoc_md28", null ],
+          [ "Using Visual Studio or the Terminal", "index.html#autotoc_md29", null ]
         ] ],
-        [ "Example project", "index.html#autotoc_md24", null ]
+        [ "Example project", "index.html#autotoc_md30", null ]
       ] ],
-      [ "API Reference", "index.html#autotoc_md25", null ]
+      [ "API Reference", "index.html#autotoc_md31", null ]
     ] ],
     [ "Programming concepts", "md_docs_markdown_concepts.html", [
       [ "Table of Contents", "md_docs_markdown_concepts.html#autotoc_md1", null ],
-      [ "1. Objects in motion", "md_docs_markdown_concepts.html#autotoc_md2", [
-        [ "1.1 Continuous motion", "md_docs_markdown_concepts.html#autotoc_md3", [
-          [ "Problem", "md_docs_markdown_concepts.html#autotoc_md4", null ],
-          [ "Solution", "md_docs_markdown_concepts.html#autotoc_md5", null ],
-          [ "Conclusion", "md_docs_markdown_concepts.html#autotoc_md6", null ]
+      [ "Console prints and String formatting", "md_docs_markdown_concepts.html#autotoc_md2", null ],
+      [ "Data structures and algorithms", "md_docs_markdown_concepts.html#autotoc_md3", [
+        [ "Iterating over arrays", "md_docs_markdown_concepts.html#autotoc_md4", null ],
+        [ "Removing multiple elements from an array", "md_docs_markdown_concepts.html#autotoc_md5", [
+          [ "Problem", "md_docs_markdown_concepts.html#autotoc_md6", null ],
+          [ "Solution", "md_docs_markdown_concepts.html#autotoc_md7", null ]
+        ] ]
+      ] ],
+      [ "Objects in motion", "md_docs_markdown_concepts.html#autotoc_md8", [
+        [ "Continuous motion", "md_docs_markdown_concepts.html#autotoc_md9", [
+          [ "Problem", "md_docs_markdown_concepts.html#autotoc_md10", null ],
+          [ "Solution", "md_docs_markdown_concepts.html#autotoc_md11", null ],
+          [ "Conclusion", "md_docs_markdown_concepts.html#autotoc_md12", null ]
         ] ]
       ] ]
     ] ],
