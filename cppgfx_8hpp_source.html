@@ -432,35 +432,36 @@ $(document).ready(function(){initNavTree('cppgfx_8hpp_source.html',''); initResi
 <div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;        <span class="keywordtype">void</span> updateDisplaySize();</div>
 <div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160; </div>
 <div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> <a class="code" href="classcppgfx_1_1App.html">App</a>* m_instance = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160; </div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;        sf::Color m_defaultBackgroundColor = sf::Color(60, 60, 60);</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;        <span class="keywordtype">bool</span> m_isDarkTitleBar = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;        sf::Clock m_lifetimeClock;</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        sf::Clock m_frametimeClock;</div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160; </div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;        uint32_t m_widthBeforeFullscreen = 0;</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        uint32_t m_heightBeforeFullscreen = 0;</div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160; </div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> sf::Font m_defaultFont;</div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160; </div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;        <span class="keyword">struct </span>DrawStyle {</div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;            sf::Color m_fillColor = sf::Color::White;</div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;            sf::Color m_strokeColor = sf::Color::Black;</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;            <span class="keywordtype">float</span> m_strokeWeight = 0.f;</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;            sf::Font m_font = m_defaultFont;</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;            uint32_t m_fontSize = 18;</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160; </div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;            LineCap m_lineCap = LineCap::Round;</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;            RectMode m_rectMode = RectMode::Corner;</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;            TextAlign m_textAlign = TextAlign::Left;</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;        };</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;        std::vector&lt;DrawStyle&gt; m_drawStyleStack;</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160; </div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    };</div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160; </div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;}</div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160; </div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//CPP_GRAPHICS_LIB_CPPGFX_HPP</span></div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;        <span class="keywordtype">bool</span> m_windowShouldClose = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160; </div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;        sf::Color m_defaultBackgroundColor = sf::Color(60, 60, 60);</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;        <span class="keywordtype">bool</span> m_isDarkTitleBar = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        sf::Clock m_lifetimeClock;</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;        sf::Clock m_frametimeClock;</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160; </div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        uint32_t m_widthBeforeFullscreen = 0;</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;        uint32_t m_heightBeforeFullscreen = 0;</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160; </div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> sf::Font m_defaultFont;</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160; </div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;        <span class="keyword">struct </span>DrawStyle {</div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;            sf::Color m_fillColor = sf::Color::White;</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;            sf::Color m_strokeColor = sf::Color::Black;</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;            <span class="keywordtype">float</span> m_strokeWeight = 0.f;</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;            sf::Font m_font = m_defaultFont;</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;            uint32_t m_fontSize = 18;</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160; </div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;            LineCap m_lineCap = LineCap::Round;</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;            RectMode m_rectMode = RectMode::Corner;</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;            TextAlign m_textAlign = TextAlign::Left;</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;        };</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;        std::vector&lt;DrawStyle&gt; m_drawStyleStack;</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160; </div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;    };</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160; </div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;}</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160; </div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//CPP_GRAPHICS_LIB_CPPGFX_HPP</span></div>
 <div class="ttc" id="aclasscppgfx_1_1App_html"><div class="ttname"><a href="classcppgfx_1_1App.html">cppgfx::App</a></div><div class="ttdoc">The main application class.</div><div class="ttdef"><b>Definition:</b> cppgfx.hpp:78</div></div>
 <div class="ttc" id="aclasscppgfx_1_1App_html_a1ec64ef432f19d7436adbb06bedca8ae"><div class="ttname"><a href="classcppgfx_1_1App.html#a1ec64ef432f19d7436adbb06bedca8ae">cppgfx::App::radians</a></div><div class="ttdeci">float radians(float degrees)</div><div class="ttdoc">Convert degrees to radians.</div></div>
 <div class="ttc" id="aclasscppgfx_1_1App_html_a40ce06cfdc9f3ee1fd513141a8912382"><div class="ttname"><a href="classcppgfx_1_1App.html#a40ce06cfdc9f3ee1fd513141a8912382">cppgfx::App::randomInt</a></div><div class="ttdeci">int randomInt(int min, int max)</div><div class="ttdoc">Generate a random integer value between min and max.</div></div>
