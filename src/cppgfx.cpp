@@ -285,6 +285,7 @@ namespace cppgfx {
     }
 
     void App::close() {
+        m_windowShouldClose = true;
         window.close();
     }
 
@@ -492,7 +493,7 @@ namespace cppgfx {
         }
         ImGui::GetIO().FontDefault = ImGui::GetIO().Fonts->Fonts.back();
 
-        while (window.isOpen()) {
+        while (window.isOpen() && !m_windowShouldClose) {
 
             // Handle dark title bar
             if (darkTitleBar != m_isDarkTitleBar) {

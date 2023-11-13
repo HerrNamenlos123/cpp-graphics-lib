@@ -729,6 +729,7 @@ namespace cppgfx {
         void updateDisplaySize();
 
         inline static App* m_instance = nullptr;
+        bool m_windowShouldClose = false;
 
         sf::Color m_defaultBackgroundColor = sf::Color(60, 60, 60);
         bool m_isDarkTitleBar = false;
