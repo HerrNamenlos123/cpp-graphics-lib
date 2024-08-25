@@ -520,6 +520,301 @@ static void LoadDefaultImGuiStyle()
     style.GrabRounding = 10.0f;
 }
 
+sf::Font App::loadFont(const std::string& filename)
+{
+    sf::Font font;
+    if (!font.loadFromFile(filename)) {
+        throw std::runtime_error("[cppgfx] Failed to load font: " + filename);
+    }
+    return font;
+}
+
+void App::textAlign(TextAlign align)
+{
+    m_drawStyleStack.back().m_textAlign = align;
+}
+
+float App::textWidth(const std::string& text)
+{
+    sf::Text sfText;
+    sfText.setFont(m_drawStyleStack.back().m_font);
+    sfText.setString(text);
+    sfText.setCharacterSize(m_drawStyleStack.back().m_fontSize);
+    return sfText.getLocalBounds().width;
+}
+
+void App::textSize(uint32_t size)
+{
+    m_drawStyleStack.back().m_fontSize = size;
+}
+
+void App::text(const std::string& text, float x, float y)
+{
+    sf::Text sfText;
+    sfText.setFont(m_drawStyleStack.back().m_font);
+    sfText.setString(text);
+    sfText.setCharacterSize(m_drawStyleStack.back().m_fontSize);
+    sfText.setFillColor(m_drawStyleStack.back().m_fillColor);
+    sfText.setOutlineColor(m_drawStyleStack.back().m_strokeColor);
+    sfText.setOutlineThickness(m_drawStyleStack.back().m_strokeWeight);
+    sfText.setOrigin({ 0, sfText.getLocalBounds().top });
+    if (m_drawStyleStack.back().m_textAlign == TextAlign::Left) {
+        sfText.setPosition({ x, y });
+    }
+    else if (m_drawStyleStack.back().m_textAlign == TextAlign::Center) {
+        sfText.setPosition({ x - sfText.getLocalBounds().width / 2.0f, y });
+    }
+    else if (m_drawStyleStack.back().m_textAlign == TextAlign::Right) {
+        sfText.setPosition({ x - sfText.getLocalBounds().width, y });
+    }
+    else {
+        throw std::runtime_error("Unknown text align");
+    }
+    window.draw(sfText);
+}
+
+// =======================================
+// =====         Window API       ========
+// =======================================
+
+void App::size(int w, int h)
+{
+    this->width = w;
+    this->height = h;
+    window.setSize(sf::Vector2u(w, h));
+}
+
+void App::setTitle(const std::string& text)
+{
+    this->title = text;
+    window.setTitle(text);
+}
+
+void App::setFrameRate(float framerate)
+{
+    window.setFramerateLimit(static_cast<unsigned int>(framerate));
+}
+
+void App::fullscreen()
+{
+    m_widthBeforeFullscreen = width;
+    m_heightBeforeFullscreen = height;
+    window.create(sf::VideoMode::getDesktopMode(), title, sf::Style::Fullscreen);
+}
+
+void App::exitFullscreen()
+{
+    window.create(sf::VideoMode({ m_widthBeforeFullscreen, m_heightBeforeFullscreen }),
+                  title);
+}
+
+void App::close()
+{
+    m_windowShouldClose = true;
+    window.close();
+}
+
+void App::focus()
+{
+    window.requestFocus();
+}
+
+// =======================================
+// =====         Math API         ========
+// =======================================
+
+float App::dist(float x1, float y1, float x2, float y2)
+{
+    return sqrtf(powf(x2 - x1, 2) + powf(y2 - y1, 2));
+}
+
+float App::radians(float degrees)
+{
+    return degrees * (PI / 180.0f);
+}
+
+float App::degrees(float radians)
+{
+    return radians * (180.0f / PI);
+}
+
+void App::randomSeed(uint32_t seed)
+{
+    std::srand(seed);
+}
+
+int App::randomInt(int min, int max)
+{
+    return min + std::rand() / (RAND_MAX / (max - min));
+}
+
+int App::randomInt(int max)
+{
+    return random(0, max);
+}
+
+float App::random(float min, float max)
+{
+    return min
+        + static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / (max - min)));
+}
+
+float App::random(float max)
+{
+    return random(0.0f, max);
+}
+
+// =======================================
+// =====     Time and Date API    ========
+// =======================================
+
+uint64_t App::micros()
+{
+    return static_cast<uint64_t>(m_lifetimeClock.getElapsedTime().asMicroseconds());
+}
+
+uint64_t App::millis()
+{
+    return static_cast<uint64_t>(m_lifetimeClock.getElapsedTime().asMilliseconds());
+}
+
+int App::second()
+{
+    auto now = std::chrono::system_clock::now();
+    auto now_c = std::chrono::system_clock::to_time_t(now);
+    auto now_tm = std::localtime(&now_c);
+    return now_tm->tm_sec;
+}
+
+int App::minute()
+{
+    auto now = std::chrono::system_clock::now();
+    auto now_c = std::chrono::system_clock::to_time_t(now);
+    auto now_tm = std::localtime(&now_c);
+    return now_tm->tm_min;
+}
+
+int App::hour()
+{
+    auto now = std::chrono::system_clock::now();
+    auto now_c = std::chrono::system_clock::to_time_t(now);
+    auto now_tm = std::localtime(&now_c);
+    return now_tm->tm_hour;
+}
+
+int App::day()
+{
+    auto now = std::chrono::system_clock::now();
+    auto now_c = std::chrono::system_clock::to_time_t(now);
+    auto now_tm = std::localtime(&now_c);
+    return now_tm->tm_mday;
+}
+
+int App::month()
+{
+    auto now = std::chrono::system_clock::now();
+    auto now_c = std::chrono::system_clock::to_time_t(now);
+    auto now_tm = std::localtime(&now_c);
+    return now_tm->tm_mon + 1;
+}
+
+int App::year()
+{
+    auto now = std::chrono::system_clock::now();
+    auto now_c = std::chrono::system_clock::to_time_t(now);
+    auto now_tm = std::localtime(&now_c);
+    return now_tm->tm_year + 1900;
+}
+
+// =======================================
+// =====        Reserved API      ========
+// =======================================
+
+template <typename T> static inline T Lerp(T a, T b, float t)
+{
+    return (T)(a + (b - a) * t);
+}
+static inline ImVec2 Lerp(const ImVec2& a, const ImVec2& b, float t)
+{
+    return { a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t };
+}
+static inline ImVec2 Lerp(const ImVec2& a, const ImVec2& b, const ImVec2& t)
+{
+    return { a.x + (b.x - a.x) * t.x, a.y + (b.y - a.y) * t.y };
+}
+static inline ImVec4 Lerp(const ImVec4& a, const ImVec4& b, float t)
+{
+    return { a.x + (b.x - a.x) * t,
+             a.y + (b.y - a.y) * t,
+             a.z + (b.z - a.z) * t,
+             a.w + (b.w - a.w) * t };
+}
+
+static void LoadDefaultImGuiStyle()
+{
+    auto colors = ImGui::GetStyle().Colors;
+
+    colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+    colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
+    colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 0.8f);
+    colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+    colors[ImGuiCol_PopupBg] = ImVec4(0.08f, 0.08f, 0.08f, 0.94f);
+    colors[ImGuiCol_Border] = ImVec4(0.43f, 0.43f, 0.50f, 0.50f);
+    colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+    colors[ImGuiCol_FrameBg] = ImVec4(0.53f, 0.53f, 0.53f, 0.48f);
+    colors[ImGuiCol_FrameBgHovered] = ImVec4(0.42f, 0.42f, 0.42f, 0.80f);
+    colors[ImGuiCol_FrameBgActive] = ImVec4(0.47f, 0.47f, 0.47f, 1.00f);
+    colors[ImGuiCol_TitleBg] = ImVec4(0.04f, 0.04f, 0.04f, 1.00f);
+    colors[ImGuiCol_TitleBgActive] = ImVec4(0.24f, 0.24f, 0.24f, 1.00f);
+    colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.00f, 0.00f, 0.00f, 0.51f);
+    colors[ImGuiCol_MenuBarBg] = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
+    colors[ImGuiCol_ScrollbarBg] = ImVec4(0.02f, 0.02f, 0.02f, 0.53f);
+    colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.31f, 0.31f, 0.31f, 1.00f);
+    colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.41f, 0.41f, 0.41f, 1.00f);
+    colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.51f, 0.51f, 0.51f, 1.00f);
+    colors[ImGuiCol_CheckMark] = ImVec4(0.33f, 1.00f, 0.00f, 1.00f);
+    colors[ImGuiCol_SliderGrab] = ImVec4(0.70f, 0.70f, 0.70f, 0.80f);
+    colors[ImGuiCol_SliderGrabActive] = ImVec4(0.76f, 0.76f, 0.76f, 1.00f);
+    colors[ImGuiCol_Button] = ImVec4(0.55f, 0.55f, 0.55f, 0.38f);
+    colors[ImGuiCol_ButtonHovered] = ImVec4(0.59f, 0.59f, 0.59f, 0.80f);
+    colors[ImGuiCol_ButtonActive] = ImVec4(0.63f, 0.63f, 0.63f, 1.00f);
+    colors[ImGuiCol_Header] = ImVec4(0.55f, 0.55f, 0.55f, 0.38f);
+    colors[ImGuiCol_HeaderHovered] = ImVec4(0.59f, 0.59f, 0.59f, 0.80f);
+    colors[ImGuiCol_HeaderActive] = ImVec4(0.63f, 0.63f, 0.63f, 1.00f);
+    colors[ImGuiCol_Separator] = colors[ImGuiCol_Border];
+    colors[ImGuiCol_SeparatorHovered] = ImVec4(0.10f, 0.40f, 0.75f, 0.78f);
+    colors[ImGuiCol_SeparatorActive] = ImVec4(0.10f, 0.40f, 0.75f, 1.00f);
+    colors[ImGuiCol_ResizeGrip] = ImVec4(0.26f, 0.59f, 0.98f, 0.25f);
+    colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.26f, 0.59f, 0.98f, 0.67f);
+    colors[ImGuiCol_ResizeGripActive] = ImVec4(0.26f, 0.59f, 0.98f, 0.95f);
+    colors[ImGuiCol_Tab]
+        = Lerp(colors[ImGuiCol_Header], colors[ImGuiCol_TitleBgActive], 0.80f);
+    colors[ImGuiCol_TabHovered] = colors[ImGuiCol_HeaderHovered];
+    colors[ImGuiCol_TabActive]
+        = Lerp(colors[ImGuiCol_HeaderActive], colors[ImGuiCol_TitleBgActive], 0.60f);
+    colors[ImGuiCol_TabUnfocused]
+        = Lerp(colors[ImGuiCol_Tab], colors[ImGuiCol_TitleBg], 0.80f);
+    colors[ImGuiCol_TabUnfocusedActive]
+        = Lerp(colors[ImGuiCol_TabActive], colors[ImGuiCol_TitleBg], 0.40f);
+    colors[ImGuiCol_PlotLines] = ImVec4(0.61f, 0.61f, 0.61f, 1.00f);
+    colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 1.00f);
+    colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+    colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
+    colors[ImGuiCol_TextSelectedBg] = ImVec4(0.63f, 0.63f, 0.63f, 0.35f);
+    colors[ImGuiCol_DragDropTarget] = ImVec4(1.00f, 1.00f, 0.00f, 0.90f);
+    colors[ImGuiCol_NavHighlight] = ImVec4(0.26f, 0.59f, 0.98f, 1.00f);
+    colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 1.00f, 1.00f, 0.70f);
+    colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
+    colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
+
+    auto& style = ImGui::GetStyle();
+    style.FrameRounding = 8.0f;
+    style.WindowRounding = 10.0f;
+    style.ScrollbarRounding = 8.0f;
+    style.PopupRounding = 8.0f;
+    style.GrabRounding = 10.0f;
+}
+
 void App::run()
 {
     sf::ContextSettings settings;
@@ -551,7 +846,7 @@ void App::run()
     }
     ImGui::GetIO().FontDefault = ImGui::GetIO().Fonts->Fonts.back();
 
-    while (window.isOpen()) {
+    while (window.isOpen() && !m_windowShouldClose) {
 
         // Handle dark title bar
         if (darkTitleBar != m_isDarkTitleBar) {
